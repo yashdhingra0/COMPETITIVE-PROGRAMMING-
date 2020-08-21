@@ -1,0 +1,69 @@
+// C++ program for implement deletion in Heaps 
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// To heapify a subtree rooted with node i which is 
+// an index in arr[]. N is size of heap 
+void heapify(int arr[], int n, int i) 
+{ 
+	int smallest = i; // Initialize largest as root 
+	int l = 2 * i + 1; // left = 2*i + 1 
+	int r = 2 * i + 2; // right = 2*i + 2 
+
+	// If left child is larger than root 
+	if (l < n && arr[l] < arr[smallest]) 
+		smallest = l; 
+
+	// If right child is larger than largest so far 
+	if (r < n && arr[r] < arr[smallest]) 
+		smallest = r; 
+
+	// If largest is not root 
+	if (smallest != i) { 
+		swap(arr[i], arr[smallest]); 
+
+		// Recursively heapify the affected sub-tree 
+		heapify(arr, n, smallest); 
+	} 
+} 
+
+// Function to delete the root from minHeap 
+void deleteRoot(int arr[], int& n,int i) 
+{ 
+	//Storing the last index element  in  a variable 
+	int lastElement = arr[n - 1]; 
+
+	// Replace root with first element 
+	arr[i] = lastElement; 
+
+	// Decrease size of heap by 1 
+	n = n - 1; 
+
+	// heapify the kth index  node 
+	heapify(arr, n, i); 
+} 
+
+/* A utility function to print array of size n */
+void printArray(int arr[], int n) 
+{ 
+	for (int i = 0; i < n; ++i) 
+		cout << arr[i] << " "; 
+	cout << "\n"; 
+} 
+
+
+int main() 
+{ 
+	
+	int arr[] = { 10,20,30,40,50}; 
+    int k=1;//kth index which had to be deleted 
+
+	int n = sizeof(arr) / sizeof(arr[0]); 
+
+	deleteRoot(arr, n,k); //delete the kth node 
+
+	printArray(arr, n); //print the array
+
+	return 0; 
+} 
