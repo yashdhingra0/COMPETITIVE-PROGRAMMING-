@@ -1,0 +1,56 @@
+                                        //example 
+//1->2->3
+//4->1
+//2->4
+//3->4
+//5->2
+//cycle formed is 1->2->4->1
+
+
+
+
+void check(vector<vector<int>> &g,int *vis,int u,bool &ans)
+{
+vis[u]=true;
+for(auto v: g[u])
+{
+// cout<<u<<" “<<v<<” "<<endl;
+if(vis[v]==0)
+{
+check(g,vis,v,ans);
+}
+else if(vis[v]==1)
+{
+ans=true;
+}
+}
+//visited the node u for 2nd time 
+vis[u]=2;
+}
+int Solution::solve(int A, vector<vector<int> > &B) {
+vector<vector<int>> g(A+1);
+int n=B.size();
+int i,j;
+//connecting the nodes 
+for(i=0;i<n;i++)
+{
+g[B[i][0]].push_back(B[i][1]);
+}
+//taking visited array
+int vis[A+1];
+memset(vis,0,sizeof(vis));
+bool ans=false;
+
+for(i=1;i<=A;i++)
+{
+    if(!vis[i])
+    {
+        check(g,vis,i,ans);
+    }
+    if(ans)
+        break;
+    
+}
+return ans;
+
+}
