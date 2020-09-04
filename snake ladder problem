@@ -1,0 +1,47 @@
+
+A and B are the two 2d matrix where A will tell us about the ladder connectivity and B tells us about the snake connectivity
+
+//BFS APPROACH
+
+
+
+int Solution::snakeLadder(vector<vector<int> > &A, vector<vector<int> > &B) {
+    vector<int>vis(101,0),move(101,-1);
+    for(int i=0; i<A.size();i++)
+{
+    move[A[i][0]]=A[i][1];
+}
+for(int i=0; i<B.size();i++)
+  move[B[i][0]]=B[i][1];
+
+queue<pair<int,int>>q;
+pair<int,int>p;
+q.push({1,0});
+vis[1]=1;
+//p=q;
+while(!q.empty()){
+    p=q.front();
+     q.pop();
+     if(p.first==100)
+      break;
+      for(int j=p.first+1; j<=100 && j<=p.first+6; j++)
+     {
+         if(vis[j]==0)
+         {   
+             vis[j]=1;
+             pair<int,int>tmp;
+             tmp.second=p.second+1;
+             if(move[j]!=-1)
+             tmp.first=move[j];
+             else
+             tmp.first=j;
+             q.push(tmp);
+         }
+     }
+ }
+ if(p.first==100)
+ return p.second;
+ else 
+ return -1;
+    
+}
