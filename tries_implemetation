@@ -5,11 +5,20 @@
 //insert will add the string to trie strcture
 //query will return count of string starting with the string [assed to query function
 
+used for insertion deletion in 0n time whereas the time complexity for bst is onlogn
+
+used to store strings tht can be visualized as a graph
+Tries is a tree that stores strings. Maximum number of children of a node is equal to size of alphabet. 
+Trie supports search, insert and delete operations in O(L) time where L is length of key.
+
+
 
 
 
 #include<bits/stdc++.h>
 using namespace std;
+
+//creation of trie node and a 26 pointers connected to it
 struct node{
     int cnt;
     node* next[26];
@@ -22,7 +31,7 @@ node* create()
     temp->cnt=0;
     return temp;
 }
-node* tt=create();
+node* tt=create();   //root node intialization
 
 void insert(string &s,node* root)
 {  
@@ -45,7 +54,7 @@ void insert(string &s,node* root)
 }
 
 
-int query(string &s,node* root)
+int query(string &s,node* root)   // it will return the count of prefix strinf starting with given query
 {
     node* head=root;
     int n=s.size();
