@@ -1,0 +1,54 @@
+Please note that, we need to find and delete middle element. Deleting an element from middle is not O(1) for array. 
+Also, we may need to move the middle pointer up when we push an element and move down when we pop(). 
+In singly linked list, moving middle pointer in both directions is not possible.
+
+The idea is to use Doubly Linked List (DLL). We can delete middle element in O(1) time by maintaining mid pointer. 
+We can move mid pointer in both directions using previous and next pointers. 
+
+
+Advantages over singly linked list
+1) A DLL can be traversed in both forward and backward direction.
+2) The delete operation in DLL is more efficient if pointer to the node to be deleted is given.
+3) We can quickly insert a new node before a given node.
+In singly linked list, to delete a node, pointer to the previous node is needed. To get this previous node,
+sometimes the list is traversed. In DLL, we can get the previous node using previous pointer.
+
+* Node of a doubly linked list */
+struct Node { 
+    int data; 
+    struct Node* next; // Pointer to next node in DLL 
+    struct Node* prev; // Pointer to previous node in DLL 
+};
+
+
+//deletion function
+void deleteNode(Node** head_ref, Node* del)  
+{  
+    /* base case */
+    if (*head_ref == NULL || del == NULL)  
+        return;  
+  
+    /* If node to be deleted is head node */
+    if (*head_ref == del)  
+        *head_ref = del->next;  
+  
+    /* Change next only if node to be  
+    deleted is NOT the last node */
+    if (del->next != NULL)  
+        del->next->prev = del->prev;  
+  
+    /* Change prev only if node to be  
+    deleted is NOT the first node */
+    if (del->prev != NULL)  
+        del->prev->next = del->next;  
+  
+    /* Finally, free the memory occupied by del*/
+    free(del);  
+    return;  
+}  
+
+
+//trck for four elements in a stack
+deleteNode(&head, head); /*delete first node*/
+    deleteNode(&head, head->next); /*delete middle node*/
+    deleteNode(&head, head->next); /*delete last node*/
