@@ -1,0 +1,44 @@
+there are two approaches for it one is by counting all the subarray having sum qual to k and return the max length sub array 
+seconnd approach is by hashing store the sum in hash map with index in a pair format and 
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,k;
+	    cin>>n>>k;
+	    int a[n];
+	    for(int i=0;i<n;i++){
+	        cin>>a[i];
+	    }
+	    unordered_map<int,int>m;
+	    int sum=0;
+	    int maxl=0;
+	    for(int i=0;i<n;i++){
+	        sum=sum+a[i];
+	        if(sum==k){
+	            maxl=i+1;
+	        }
+	        
+	        if(m.find(sum)==m.end()){
+	        m[sum]=i;}
+	        if(m.find(sum-k)!=m.end()){
+	        if(maxl<i-m[sum-k]){
+	            maxl=i-m[sum-k];
+	        }}
+	        
+	        
+	        
+	    }
+	    cout<<maxl<<endl;
+	}
+	return 0;
+}
