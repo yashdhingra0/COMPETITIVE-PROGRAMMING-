@@ -1,0 +1,86 @@
+1st approach with on2 solution and 
+
+Traverse the array and find the max element to the left of arr[i] and also find the max element 
+to the right of arr[i] and at the end result is res+=min(left,right)-arr[i] 
+
+// water that can be stored
+int maxWater(int arr[], int n) 
+{
+     
+    // To store the maximum water 
+    // that can be stored
+    int res = 0;
+     
+    // For every element of the array
+    for (int i = 1; i < n-1; i++) {
+         
+        // Find the maximum element on its left
+        int left = arr[i];
+        for (int j=0; j<i; j++)
+           left = max(left, arr[j]);
+         
+        // Find the maximum element on its right   
+        int right = arr[i];
+        for (int j=i+1; j<n; j++)
+           right = max(right, arr[j]); 
+        
+       // Update the maximum water    
+       res = res + (min(left, right) - arr[i]);   
+    }
+ 
+    return res; 
+} 
+
+
+
+//2ND APPROACH IS IN ON COMPLEXITY WE CAN STORE THE MAX AND MIN VALUE OF EVERY ELEMENT IN A LEFT[I] AND RIGHT[I] ARRAY 
+
+
+IMPLEMENTATION
+
+int findWater(int arr[], int n)
+{
+    // left[i] contains height of tallest bar to the
+    // left of i'th bar including itself
+    int left[n];
+ 
+    // Right [i] contains height of tallest bar to
+    // the right of ith bar including itself
+    int right[n];
+ 
+    // Initialize result
+    int water = 0;
+ 
+    // Fill left array
+    left[0] = arr[0];
+    for (int i = 1; i < n; i++)
+        left[i] = max(left[i - 1], arr[i]);
+ 
+    // Fill right array
+    right[n - 1] = arr[n - 1];
+    for (int i = n - 2; i >= 0; i--)
+        right[i] = max(right[i + 1], arr[i]);
+ 
+    // Calculate the accumulated water element by element
+    // consider the amount of water on i'th bar, the
+    // amount of water accumulated on this particular
+    // bar will be equal to min(left[i], right[i]) - arr[i] .
+    for (int i = 0; i < n; i++)
+        water += min(left[i], right[i]) - arr[i];
+ 
+    return water;
+}
+
+
+//OPTIMISING THE SPACE COMPLEXITY 
+
+
+
+
+
+
+
+
+
+
+
