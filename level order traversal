@@ -1,0 +1,42 @@
+vector<vector<int> > Solution::levelOrder(TreeNode* A) {
+        vector<vector<int>>ans;
+        vector<int>v;
+        if(A==NULL)
+        {
+        return ans;
+        }
+        if(A->left==NULL&&A->right==NULL)
+        {
+        v.push_back(A->val);
+        ans.push_back(v);
+        return ans;
+        }
+
+        queue<TreeNode *>q;
+        TreeNode *temp=new TreeNode(-1);
+        q.push(A);
+        while(!q.empty())
+        {
+        q.push(temp);
+        while(q.front()!=temp)
+        {
+        TreeNode *list=q.front();
+        if(list->left!=NULL)
+        {
+        q.push(list->left);
+        }
+        if(list->right!=NULL)
+        {
+        q.push(list->right);
+        }
+        v.push_back(list->val);
+        q.pop();
+        }
+        ans.push_back(v);
+        v.clear();
+        q.pop();
+
+        }
+        return ans;
+
+    }
