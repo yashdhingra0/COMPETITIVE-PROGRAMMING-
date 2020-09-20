@@ -1,0 +1,70 @@
+
+///////////////////////////////////////////////////////////////////Approach//////////////////////////////////////////////////////////////// 
+Answer := 0
+Loop i = 1 to N :
+    Loop j = 1 to M:
+          IF MATRIX at i, j equal to 'X' and not visited:
+                 BFS/DFS to mark the connected area as visited
+                 update Answer
+    EndLoop
+EndLoop
+
+return Answer//
+
+///////////////////////////////////////////////////////////////////SOLUTION///////////////////////////////////////////////////////////////////////////////////////////////////
+
+int dirX[4] = {-1, 0, 1, 0};
+int dirY[4] = {0, -1, 0, 1};
+
+bool Invalid(int x, int y, int lx, int ly)
+{
+    return (x<0||y<0||x>=lx||y>=ly);
+}
+void DFS(vector<string> &A, int x, int y, vector<vector<bool>> &visited, int n, int m)
+{
+    visited[x][y] = true;
+    for(int i=0; i<4; i++)
+    {
+        int newX = x+dirX[i];
+        int newY = y+dirY[i];
+        if(!Invalid(newX, newY, n, m)&&(!visited[newX][newY])&&A[newX][newY]=='X')
+            DFS(A, newX, newY, visited, n, m);
+    }
+    return;
+}
+int Solution::black(vector<string> &A) {
+    int n = A.size(), m = A[0].length();
+    vector<vector<bool>> visited(n, vector<bool> (m, false));
+    int shapes=0;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<m; j++)
+        {
+            if(A[i][j]=='X'&&!visited[i][j])
+            {
+                DFS(A, i, j, visited, n, m);
+                shapes++;
+            }
+        }
+    }
+    return shapes;
+}
+
+
+///////////////////////////////////////////////////////////////////INPUT OUTPUT//////////////////////////////////////////////////////////////////////////////////////////////
+
+Input 1:
+    A = [ OOOXOOO
+          OOXXOXO
+          OXOOOXO  ]
+Output 1:
+    3
+Explanation:
+    3 shapes are  :
+    (i)    X
+         X X
+    (ii)
+          X
+    (iii)
+          X
+          X
