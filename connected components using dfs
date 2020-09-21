@@ -1,0 +1,35 @@
+//A graph where all vertices are connected with each other has exactly one connected component, 
+//consisting of the whole graph. Such a graph with only one connected component is called a Strongly Connected Graph.
+
+void Graph::connectedComponents() 
+{ 
+    // Mark all the vertices as not visited 
+    bool *visited = new bool[V]; 
+    for(int v = 0; v < V; v++) 
+        visited[v] = false; 
+  
+    for (int v=0; v<V; v++) 
+    { 
+        if (visited[v] == false) 
+        { 
+            DFSUtil(v, visited); 
+  
+            cout << "\n"; 
+        } 
+    } 
+    delete[] visited; 
+} 
+  
+void Graph::DFSUtil(int v, bool visited[]) 
+{ 
+    // Mark the current node as visited and print it 
+    visited[v] = true; 
+    cout << v << " "; 
+  
+    // Recur for all the vertices 
+    // adjacent to this vertex 
+    list<int>::iterator i; 
+    for(i = adj[v].begin(); i != adj[v].end(); ++i) 
+        if(!visited[*i]) 
+            DFSUtil(*i, visited); 
+} 
