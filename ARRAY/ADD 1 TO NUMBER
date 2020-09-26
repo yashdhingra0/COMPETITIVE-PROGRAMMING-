@@ -1,0 +1,18 @@
+vector<int> Solution::plusOne(vector<int> &v) {
+while(v[0]==0 && v.size() > 0){ // remove leading zeros
+    v.erase(v.begin());
+}
+for(int i = v.size() - 1; i >= 0; i--) { // start from last
+    if(v[i] != 9) { // if last num is not 9 add 1 and return vector
+        v[i]++;
+        return v;
+    } 
+    v[i] = 0; // if 9 make it zero and move to previous
+}
+v.insert(begin(v), 1); // in case 9 9 9 9 or 0 0 0 0 or empty add 1 to start and return
+return v;
+
+}
+
+INPUT 198
+OUTPUT 199
