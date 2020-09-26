@@ -1,0 +1,21 @@
+Example :
+
+Given the below binary tree and sum = 22,
+
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \      \
+        7    2      1
+
+return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
+
+int Solution::hasPathSum(TreeNode* A, int B) {
+    if(A == NULL ) return 0;
+    else if(A!=NULL && A ->right == NULL && A->left == NULL && B == A->val) //CONDITION TO CHECK IF 
+    return 1;
+    else 
+    return hasPathSum(A->left, B-A->val)|| hasPathSum(A->right, B-A->val);
+}
