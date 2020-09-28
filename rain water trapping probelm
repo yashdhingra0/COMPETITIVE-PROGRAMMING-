@@ -29,7 +29,12 @@ int maxWater(int arr[], int n)
     }
  
     return res; 
-} 
+}
+
+
+Input: arr[]   = {3, 0, 2, 0, 4}
+Output: 7
+7 unit of water can be store 
 
 
 
