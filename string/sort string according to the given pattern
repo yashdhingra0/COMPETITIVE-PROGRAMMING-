@@ -27,15 +27,14 @@ void sortByPattern(string& str, string pat)
        }
      count[pat[i] - 'a']=0;}
   // in str. 
-	for (int i = 0; i < str.length(); i++) {// jo bcch gyee string mm mtlb jo pattern mm nhi 
-        //                                    hn to unhe agr sorted order mm last mm dalna ho to ye code thikh nhi hh kya?
+	for (int i = 0; i < 26; i++) {// 
         
-		if(count[str[i] - 'a']>0){ 
-    for(int j=0;j<count[str[i]-'a'];j++){
-       str[index++]=str[i]-'a';
+		if(count[i]>0){ 
+    for(int j=0;j<count[i];j++){
+       str[index++]=i+'a';
     
     }
-      count[str[i]-'a']=0;
+      count[i]=0;
     }
     
 }}
