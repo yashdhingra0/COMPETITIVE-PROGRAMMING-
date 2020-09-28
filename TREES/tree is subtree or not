@@ -1,0 +1,50 @@
+// C++ program to check if binary tree 
+// is subtree of another binary tree 
+** TREE 1 
+	
+			26 
+			/ \ 
+		10 3 
+		/ \ \ 
+	4 6 3 
+	\ 
+		30 
+    
+** TREE 2 
+	 
+		10 
+		/ \ 
+	4 6 
+	\ 
+		30 
+	
+    
+    
+	//check if tree 2 is a subtree of tree1 
+
+bool areIdentical(node * root1, node *root2) 
+{ 
+	
+	if (root1 == NULL && root2 == NULL) 
+		return true; 
+
+	if (root1 == NULL || root2 == NULL) 
+		return false; 
+	return (root1->data == root2->data && 
+			areIdentical(root1->left, root2->left) && 
+			areIdentical(root1->right, root2->right) ); 
+} 
+
+bool isSubtree(node *T, node *S) 
+{ 
+	if (S == NULL) 
+		return true; 
+if (T == NULL) 
+		return false; 
+if (areIdentical(T, S)) 
+		return true; 
+return isSubtree(T->left, S) || 
+		isSubtree(T->right, S); 
+} 
+
+
