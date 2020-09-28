@@ -1,0 +1,60 @@
+// C++ program to sort a string according to the 
+// order defined by a pattern string 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+Let isSubsetSum(arr, n, sum/2) be the function that returns true if 
+there is a subset of arr[0..n-1] with sum equal to sum/2
+
+The isSubsetSum problem can be divided into two subproblems
+ a) isSubsetSum() without considering last element 
+    (reducing n to n-1)
+ b) isSubsetSum considering the last element 
+    (reducing sum/2 by arr[n-1] and n to n-1)
+If any of the above the above subproblems return true, then return true. 
+isSubsetSum (arr, n, sum/2) = isSubsetSum (arr, n-1, sum/2) ||
+                              isSubsetSum (arr, n-1, sum/2 - arr[n-1])
+                              
+                              
+                                                                   ////////////////////////////////////example/////////////////////////////////////////
+                                             input 3, 1, 5, 9, 12
+                                               output yes
+//////////////////////////////////////////////////////////////////                            
+
+
+const int MAX_CHAR = 26; 
+bool issubsetsum(int a[],int n,int sum){
+    if(sum==0){
+        return true;
+    }
+    if(n==0 & sum!=0){
+        return false;
+    }
+    if (a[n-1] > sum)  
+       return issubsetsum (arr, n-1, sum);  
+  
+     return issubsetsum (a, n-1, sum) ||  
+        issubsetsum (a, n-1, sum-arr[n-1]);  
+}  
+
+
+bool partition(int a[],int n){
+    int sum=0;
+    map<int,int>m;
+    for(int i=0;i<n;i++){
+        sum+=a[i];
+    }
+    int x=sum/2;
+    if(sum%2!=0){
+        return 0;
+    }
+    else{
+      return  issubsetsum(a,n,x);
+        
+            
+        }
+        
+    }
+}
+
+//output should be bbbcccaaamn
