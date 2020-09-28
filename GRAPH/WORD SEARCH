@@ -1,0 +1,41 @@
+board =
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+
+Given word = "ABCCED", return true.
+Given word = "SEE", return true.
+Given word = "ABCB", return false.
+
+
+class Solution {
+public:
+    bool searchWord(vector<vector<char>> &board, string &word, vector<vector<bool>> &vis, int index, int row,       int col) {
+        int m = board.size(), n = board[0].size();
+        if(index == word.size()) return true;
+        int row_vec[] = {-1, 1, 0, 0};
+        int col_vec[] = {0, 0, -1, 1};
+        vis[row][col] = true;
+        for(int x=0;x<4;x++) {
+            int r = row + row_vec[x], c = col + col_vec[x];
+            if(r >= 0 && c >= 0 && r < m && c < n && word[index] == board[r][c] && !vis[r][c]
+              && searchWord(board, word, vis, index+1, r, c)) 
+                return true;
+        }
+        vis[row][col] = false;
+        return false;
+    }
+    
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size(), n = board[0].size();
+        vector<vector<bool>> vis(m, vector<bool>(n, false));
+        for(int x=0;x<m;x++) {
+            for(int y=0;y<n;y++) {
+                if(board[x][y] == word[0] && searchWord(board, word, vis, 1, x, y)) return true;
+            }
+        }
+        return false;
+    }
+};
