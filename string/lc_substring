@@ -1,0 +1,17 @@
+int t[1001][1001];
+int lc_s(string x,string y ,int n,int m){
+memset(t,-1,sizeof(t));
+if(n==0||m==0){
+return 0;}
+if(t[m][n]!=-1){
+return t[m][n];}
+for(int i=0;i<m;i++
+{
+for(int j=0;i<n;j++){
+
+if(x[n-1]==y[m-1]){
+ t[m][n]=t[m-1][n-1];
+else{
+ t[m][n]=0;
+}
+return t[m][n];}
