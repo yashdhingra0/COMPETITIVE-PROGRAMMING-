@@ -1,0 +1,58 @@
+
+approach ye hh ki a string lelo and uska reverse lelo and un dono ka lcs nikal lo vhi ans hh 
+
+string reverse(string s)
+int j = strlen(s) - 1;
+
+//Then, we are swapping the characters at position i and j. The variable i is incremented and j is decremented.
+int i=0;
+while (i < j) {
+   t = s[i];
+   s[i] = s[j];
+   s[j] = t;
+   i++;
+   j--;
+}
+return s;
+}
+
+int lcs(string str1, string str2, int m, int n ) 
+{ 
+   int L[m+1][n+1]; 
+   int i, j; 
+    
+   // Following steps build L[m+1][n+1] in bottom 
+   // up fashion. Note that L[i][j] contains  
+   // length of LCS of str1[0..i-1] and str2[0..j-1]  
+   for (i=0; i<=m; i++) 
+   { 
+     for (j=0; j<=n; j++) 
+     { 
+       if (i == 0 || j == 0) 
+         L[i][j] = 0; 
+    
+       else if (str1.at(i-1) == str2.at(j-1)) 
+         L[i][j] = L[i-1][j-1] + 1; 
+    
+       else
+         L[i][j] = max(L[i-1][j], L[i][j-1]); 
+     } 
+   } 
+      
+   // L[m][n] contains length of LCS  
+   // for X[0..n-1] and Y[0..m-1]  
+   return L[m][n]; 
+} 
+
+int lps(string a)
+string b=reverse(a);
+int x=lcs(a,b);
+return x;}
+
+
+
+
+
+
+
+
