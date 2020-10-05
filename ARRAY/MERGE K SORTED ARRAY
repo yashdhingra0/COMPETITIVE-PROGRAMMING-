@@ -1,0 +1,71 @@
+Given k sorted arrays of possibly different sizes, merge them and print the sorted output.
+
+Examples:
+
+Input: k = 3 
+      arr[][] = { {1, 3},
+                  {2, 4, 6},
+                  {0, 9, 10, 11}} ;
+Output: 0 1 2 3 4 6 9 10 11 
+
+Input: k = 2
+      arr[][] = { {1, 3, 20},
+                  {2, 4, 6}} ;
+Output: 1 2 3 4 6 20 
+
+1ST APPROACH IS TO TAKE AN OUTPUT ARRAY OF SIZE N*K AND PUT ONE BY ONE ELEMENTS FROM THE MATRIX AND THEN SORT THE OUTPUT ARRAY 
+SO THE FINAL COMPLEXITY IS O(N*KLOG(N*K));
+void mergeKArrays(int arr[][n], int a, int output[]) 
+{ 
+    int c=0; 
+      
+    //traverse the matrix 
+    for(int i=0; i<a; i++) 
+    { 
+        for(int j=0; j<n ;j++) 
+            output[c++]=arr[i][j]; 
+    } 
+      
+    //sort the array 
+    sort(output,output + n*a); 
+      
+} 
+
+
+PRIORITY BASED APPROACH 
+
+
+typedef pair<int, pair<int, int> > ppi; 
+vector<int> mergeKArrays(vector<vector<int> > arr) 
+{ 
+    vector<int> output; 
+   // Create a min heap with k heap nodes. Every 
+    // heap node has first element of an array 
+    priority_queue<ppi, vector<ppi>, greater<ppi> > pq; 
+  
+    for (int i = 0; i < arr.size(); i++) 
+        pq.push({ arr[i][0], { i, 0 } }); 
+  
+    // Now one by one get the minimum element 
+    // from min heap and replace it with next 
+    // element of its array 
+    while (pq.empty() == false) { 
+        ppi curr = pq.top(); 
+        pq.pop(); 
+  
+        // i ==> Array Number 
+        // j ==> Index in the array number 
+        int i = curr.second.first; 
+        int j = curr.second.second; 
+  
+        output.push_back(curr.first); 
+  
+        // The next element belongs to same array as 
+        // current. 
+        if (j + 1 < arr[i].size()) ///agr maan lo jis wali array se nikal rhe hn elememt agr usme aur 
+        eleemtnhh to wahan se next push krenge other wise dusra element pop hoga 
+            pq.push({ arr[i][j + 1], { i, j + 1 } }); 
+    } 
+  
+    return output; 
+} 
