@@ -1,0 +1,34 @@
+
+bool isLeaf(Node *node) 
+{ 
+   if (node == NULL) 
+       return false; 
+   if (node->left == NULL && node->right == NULL) 
+       return true; 
+   return false; 
+} 
+
+
+int leftLeavesSum(Node *root) 
+{ 
+    // Initialize result 
+    int res = 0; 
+  
+    // Update result if root is not NULL 
+    if (root != NULL) 
+    { 
+       // If left of root is NULL, then add key of 
+       // left child 
+       if (isLeaf(root->left)) 
+            res += root->left->key; 
+       else // Else recur for left child of root 
+            res += leftLeavesSum(root->left); 
+  
+       // Recur for right child of root and update res 
+       res += leftLeavesSum(root->right); 
+    } 
+  
+    // return result 
+    return res; 
+} 
+  
