@@ -1,0 +1,60 @@
+Let us understand the problem with few examples:
+
+    5, 3, 7, 10 : The user collects maximum value as 15(10 + 5)
+    8, 15, 3, 7 : The user collects maximum value as 22(7 + 15)
+
+Does choosing the best at each move gives an optimal solution? No.
+In the second example, this is how the game can be finished:
+
+
+
+There are two choices:
+
+    The user chooses the ‘ith’ coin with value ‘Vi’: The opponent either chooses (i+1)th coin or jth coin. 
+    The opponent intends to choose the coin which leaves the user with minimum value.
+    i.e. The user can collect the value Vi + min(F(i+2, j), F(i+1, j-1) ).
+    coinGame1
+    The user chooses the ‘jth’ coin with value ‘Vj’: The opponent either chooses ‘ith’ coin or ‘(j-1)th’ coin. 
+    The opponent intends to choose the coin which leaves the user with minimum value, i.e. the user can collect
+    the value Vj + min(F(i+1, j-1), F(i, j-2) ).
+    coinGame2
+    
+    
+    F(i, j) represents the maximum value the user
+can collect from i'th coin to j'th coin.
+
+F(i, j) = Max(Vi + min(F(i+2, j), F(i+1, j-1) ), 
+              Vj + min(F(i+1, j-1), F(i, j-2) ))
+As user wants to maximise the number of coins. 
+
+Base Cases
+    F(i, j) = Vi           If j == i
+    F(i, j) = max(Vi, Vj)  If j == i + 1
+    
+    
+  int coingame( int a[],int i ,int j)
+  if(i==j)
+  return a[i];
+  if(i==j+1)
+  return max(a[i],a[j]);
+  else
+  return max((a[i]+min(coingame(a,i+2,j),coingame(a,i+1,j-1)),(a[j]+min(coingame(a,i+1,j-1),coingame(a,i,j-2));
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
