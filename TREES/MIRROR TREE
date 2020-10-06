@@ -1,0 +1,48 @@
+Mirrotree(NODE* root){ // call left subtree and right subtree and then swap right and left pointers 
+if(root==null)
+return ;
+else{
+mirror(root->left);
+mirror(root->right);
+node* temp;
+temp=root->left;//swapping 
+root->left=root->right;
+root->right=temp;}}
+
+inorder(node* node)
+inorder(root->left);
+cout<<rott->data;
+inorder(root->right);
+
+
+2nd approach is queue based 
+Mirrotree(NODE* root){ // call left subtree and right subtree and then swap right and left pointers 
+if(root==null)
+return ;
+queue<node*>q;
+
+queue<Node*> q; 
+    q.push(root); 
+  
+    // Do BFS. While doing BFS, keep swapping 
+    // left and right children 
+    while (!q.empty()) 
+    { 
+        // pop top node from queue 
+        Node* curr = q.front(); 
+        q.pop(); 
+  
+        // swap left child with right child 
+        swap(curr->left, curr->right); 
+  
+        // push left and right children 
+        if (curr->left) 
+            q.push(curr->left); 
+        if (curr->right) 
+            q.push(curr->right); 
+    } 
+} 
+inorder(node* node)
+inorder(root->left);
+cout<<rott->data;
+inorder(root->right);
