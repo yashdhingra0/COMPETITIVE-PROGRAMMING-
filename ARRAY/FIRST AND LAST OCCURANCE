@@ -1,0 +1,37 @@
+int[] result = new int[2];   //BINARY SEARCH SE SOLVE KIYA HH
+        result[0] = -1;
+        result[1] = -1;        int start = 0;
+        int end = nums.length - 1;        while (start <= end) {
+            int mid = start + ((end - start) / 2);
+            if (nums[mid] == target) {
+                result[0] = findStart(nums, start, mid, target);
+                result[1] = findEnd(nums, mid, end, target);
+                return result;
+            } else if (nums[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }        return result;    }
+        
+        
+        
+        
+   public static int[] searchRange(int[] nums, int target) {        int[] result = new int[2];
+        result[0] = -1;
+        result[1] = -1;        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                if (result[0] == -1) {
+                    result[0] = i;
+                    result[1] = i;
+                } else {
+                    result[1] = i;
+                }
+            }
+        }
+        return result;
+    }  
+   
+}
+        
+        
