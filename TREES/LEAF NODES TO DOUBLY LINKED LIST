@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+  struct node *left;
+  int data;
+  struct node *right;
+};
+
+struct node *head = NULL;
+void leavesToDll(struct node *leaf){
+  struct node *first;
+  if(head == NULL){
+    head = leaf;
+  }
+  else{
+    first = head;
+    while(first -> right != NULL){
+      first = first -> right;
+    }
+    first -> right = leaf;
+    leaf -> left = first;
+ }
+}
+
+void inorderTraversal(struct node *root){
+  if(root -> left == NULL && root -> right == NULL){
+    leavesToDll(root);		
+  }
+  else if(root == NULL){
+    return;
+  }
+  else{
+    inorderTraversal(root -> left);
+    inorderTraversal(root -> right);
+  }
+}
+
+struct node *newNode(int data){
+  struct node *n = (struct node *)malloc(sizeof(struct node *));
+  n -> data = data;
+  n -> left = NULL;
+  n -> right = NULL;
+  return n;
+}
+
+void main(){
+  struct node *n = newNode(1);
+  n -> left = newNode(2);
+  n -> left -> left = newNode(4);
+  n -> left -> right = newNode(5);
+
+  n -> right = newNode(3);
+  n -> right -> left = newNode(6);
+  n -> right -> right = newNode(7);	
+	
+  inorderTraversal(n);
+
+  while(head -> right != NULL){
+    printf("%d\n", head -> data);
+    head = head -> right;
+  }
+  printf("%d\n", head -> data);
+}
