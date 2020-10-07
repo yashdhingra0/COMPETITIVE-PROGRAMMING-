@@ -1,0 +1,57 @@
+EXAMPLES : 
+Input:  n = "218765"
+Output: "251678"
+
+Input:  n = "1234"
+Output: "1243"
+
+Input: n = "4321"
+Output: "Not Possible"
+
+Input: n = "534976"
+Output: "536479"
+
+
+ALGORITHM FOR FINDING NEXT GREATER ELEMENT 
+Following are few observations about the next greater number.
+1) If all digits sorted in descending order, then output is always “Not Possible”.
+For example, 4321. 2) If all digits are sorted in ascending order, then we need to swap last two digits.
+For example, 1234.
+3) For other cases, we need to process the number from rightmost side (why? because we need to find the smallest of all greater numbers)
+
+i) the first place where the left-digit is less-than the right-digit in last example 534976, its 4.
+ii)  find the smallest digit larger than 4 to the right , its 6.
+iii) place it to the left of 4
+iv) sort the digits to the right of 6.
+
+
+
+CODE:
+void swap(char *a, char *b){
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+ 
+void findNextNumber(char num[], int n)
+{
+    int i, j;
+    for (i = n-1; i > 0; i--)
+        if (num[i] > num[i-1])
+           break;
+    if (i==0)
+    {
+        cout << "Next number is not possible";
+        return;
+    }
+    int x = num[i-1], smallest = i;
+    for (j = i+1; j < n; j++) if (num[j] > x && num[j] < num[smallest])
+            smallest = j;
+ 
+    swap(&num[smallest], &num[i-1]);
+    sort(num + i, num + n);
+ 
+    cout << "Next number with same set of digits is " << num;
+ 
+    return;
+}
