@@ -1,0 +1,27 @@
+int Solution::solve(string A) {
+
+//brute force remove every character , check palindrome
+int n=A.size();
+int first =0;
+int second =A.size()-1;
+int notequal =0;
+while(first<second){
+  
+    if(A[first] == A[second]) {
+        first++;
+        second--;
+    }
+    else if(notequal==0){
+        if(A[first+1]== A[second]) { first++; }
+        else if(A[second-1]==A[first]){
+            second--;
+        }
+        notequal++;
+        
+         if(notequal>=2) return 0;
+    }
+    else return 0;
+}
+return 1;
+
+}
