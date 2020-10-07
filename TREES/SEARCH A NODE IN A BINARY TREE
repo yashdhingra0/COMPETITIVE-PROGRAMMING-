@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+struct node{
+    int data;
+    struct node *left, *right;
+    node(int data) 
+    { 
+        this->data = data; 
+        left = right = NULL; 
+    } 
+};
+
+bool ifnode(struct node *node, int key){
+    if(node==NULL){
+        return 0;
+    }
+    if(node->data==key)
+        return 1;
+  bool res =   ifnode(node->left, key);
+    if(res)
+        return 1;
+   
+    bool res1=  ifnode(node->right,key);
+        return res1;
+        
+    
+}
+
+int main() 
+{ 
+    struct node* root = new node(0); 
+    root->left = new node(1); 
+    root->left->left = new node(3); 
+    root->left->left->left = new node(7); 
+    root->left->right = new node(4); 
+    root->left->right->left = new node(8); 
+    root->left->right->right = new node(9); 
+    root->right = new node(2); 
+    root->right->left = new node(5); 
+    root->right->right = new node(6); 
+  
+    int key = 4; 
+  
+    if (ifnode(root, key)) 
+        cout << "YES"; 
+    else
+        cout << "NO"; 
+  
+    return 0; 
+} 
+© 20
