@@ -1,0 +1,37 @@
+,,ancestor and uska childern mm max diff btana hh 
+example
+
+Node* root; 
+    root = newNode(8); 
+    root->left = newNode(3); 
+  
+    root->left->left = newNode(1); 
+    root->left->right = newNode(6); 
+    root->left->right->left = newNode(4); 
+    root->left->right->right = newNode(7); 
+  
+    root->right = newNode(10); 
+    root->right->right = newNode(14); 
+    root->right->right->left = newNode(13); 
+    
+    
+    ans 7 hh max diff 
+    
+    
+    
+    
+ancestor(node root)
+int res=INT_MAX;
+ancestorutil(root,res)
+return res;
+
+ancestorutil( node root, int res)
+if(root==null)
+return 0;
+if(root->left==null && root->right==null)
+return root->val;
+
+int val=min(ancestorutil(root->left,res),ancestorutil(root->right,res));
+int res=max(res,root->val-val)
+return min(val,root->val);
+}
