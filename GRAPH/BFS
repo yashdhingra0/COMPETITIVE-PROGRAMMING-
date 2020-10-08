@@ -1,0 +1,108 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define LL long long int
+LL X[]={1,-1,0,0};
+LL Y[]={0,0,-1,1};
+struct Node
+{
+    LL count;
+    LL x;
+    LL y;
+};
+struct comparator
+{
+    bool operator()(Node A,Node B)
+    {
+        return A.count>=B.count;
+    }
+};
+int main() 
+{
+    
+    LL t;
+    cin>>t;
+    while(t--)
+    {
+        long long m,n;
+        cin>>n>>m;
+        vector< vector<char> > v(n,vector<char>(m));
+        for(long long  i=0;i<n;i++)
+        {
+            for( long long j=0;j<m;j++)
+            {
+                cin>>v[i][j];
+            }
+        }
+        long long ans=0;
+        vector < vector<bool> >vis(n+1,vector<bool> (m+1,false));
+       priority_queue<Node,vector<Node>,comparator> Q;
+        for(LL i=0;i<n;i++)
+        {
+            for(LL j=0;j<m;j++)
+            {
+                if(v[i][j]=='0')
+                {
+                    vis[i][j]=true;
+                    Node node;
+                    node.x=i;
+                    node.y=j;
+                    node.count=0;
+                    Q.push(node);
+                }
+
+            }
+        }
+        while(!Q.empty())
+        {
+            Node node=Q.top();
+            Q.pop();
+            LL x=node.x;
+            LL y=node.y;
+            for(long long  i=0;i<4;i++)
+            {
+                if(X[i]+x>=0 and X[i]+x<n and Y[i]+y>=0 and Y[i]+y<m)
+                {
+                    if( (vis[X[i]+x][Y[i]+y]==false) and ( v[X[i]+x][Y[i]+y]=='1' or v[X[i]+x][Y[i]+y]=='2' ) )
+                    {
+                        if(v[X[i]+x][Y[i]+y]=='1')
+                        {
+                            Node temp;
+                            temp.x=X[i]+x;
+                            temp.y=Y[i]+y;
+                            temp.count=node.count+1;
+                            vis[temp.x][temp.y]=true;
+                            Q.push(temp);
+                            ans=max(ans,temp.count);
+                        }
+                        else if(v[X[i]+x][Y[i]+y]=='2')
+                        {
+                            Node temp;
+                            temp.x=X[i]+x;
+                            temp.y=Y[i]+y;
+                            temp.count=node.count+2;
+                            Q.push(temp);
+                            vis[temp.x][temp.y]=true;
+                            ans=max(ans,temp.count);
+                        }
+                    }
+                }
+            }
+        }
+        bool ok=true;
+        for(long long  i=0;i<n;i++)
+        {
+            for(long long  j=0;j<m;j++)
+            {
+                if(vis[i][j]==false and (v[i][j]=='1' or v[i][j]=='2'))
+                {
+                    ok=false;
+                    break;
+                }
+            }
+        }
+        if(ok)
+        cout<<ans<<endl;
+        else
+        cout<<-1<<endl;
+    }
+}
