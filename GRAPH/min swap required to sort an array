@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+int minswap(int a[],int n){
+    pair<int,int>p[n];
+    int res=0;
+    for(int i=0;i<n;i++){
+        p[i].first = a[i];
+        p[i].second = i;
+        
+    }
+    sort(p,p+n);
+    vector<bool> vis(n, false); 
+    
+    for(int i=0;i<n;i++){
+        if(vis[i] || p[i].second==i) // agr phehle visit krliya ho or apni jgah pe hi hh to koi swap ki jrurt nhi 
+            continue;
+        
+        int cycle=0;
+        int j=i;
+        while(!vis[j]){
+            vis[j]=1;
+            
+            j=p[j].second;
+            cycle++;
+        }
+        if(cycle>0){
+            res+=(cycle-1); // jitni length ki cycle bnegi usse ek kmm swap krne pdenge 
+        }
+        
+    }
+    return res;
+}
+
+int main()
+{
+	int a[]={1, 5, 4, 3, 2};
+    int n=5;
+    cout<<minswap(a,n);
+	return 0;
+}
+
+output 2 
