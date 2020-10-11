@@ -1,0 +1,39 @@
+seedhi approach ye hh ki dono ko sort krlo agr arrival time is leeser hh then platform increases else decreases
+
+int findPlatform(int arr[], int dep[], int n) 
+{ 
+    // Sort arrival and departure arrays 
+    sort(arr, arr + n); 
+    sort(dep, dep + n); 
+  
+    // plat_needed indicates number of platforms 
+    // needed at a time 
+    int plat_needed = 1, result = 1; 
+    int i = 1, j = 0; 
+  
+    // Similar to merge in merge sort to process 
+    // all events in sorted order 
+    while (i < n && j < n) { 
+        // If next event in sorted order is arrival, 
+        // increment count of platforms needed 
+        if (arr[i] <= dep[j]) { 
+            plat_needed++; 
+            i++; 
+        } 
+  
+        // Else decrement count of platforms needed 
+        else if (arr[i] > dep[j]) { 
+            plat_needed--; 
+            j++; 
+        } 
+  
+        // Update result if needed 
+        if (plat_needed > result) 
+            result = plat_needed; 
+    } 
+  
+    return result; 
+} 
+EXAMPLE INPUT ARR[]={9:00,9:40,9:50,11:00,15:00,18:00}
+DEPT[]={9:10,11:20,11:30,12:00,19:00,20:00}
+OUTPUT 3 PLAFROMS NEEDED
