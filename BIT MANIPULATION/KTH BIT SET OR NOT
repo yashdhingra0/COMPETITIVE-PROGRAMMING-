@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+int setbit(int n,int k){
+    int m=1;
+    
+    while(k>1){
+        
+      n=n<<1;
+        k--;
+        
+    ;}
+   if(n&1==1)
+       return 1;
+    else
+        return 0;
+}
+
+int main()
+{
+	int n,m;
+    cin>>n;
+    cin>>m;
+    cout<<setbit(n,m)<<endl;
+    return 0;
+}
+     // ##yash_dhingra......
+     
+     
