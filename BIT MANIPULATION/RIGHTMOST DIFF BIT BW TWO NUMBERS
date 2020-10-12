@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+int setbit(int n,int m){
+    int x=1;
+    int y=1;
+    while((n&y)==(m&y)){
+        y=y<<1;
+       // n=n>>1;
+       // m=m>>1;
+    x++;}
+    return x;
+}
+
+int main()
+{
+	int n,m;
+    cin>>n;
+    cin>>m;
+    cout<<setbit(n,m)<<endl;
+    return 0;
+}
+INPUT 9 11
+OUTPUT 2
