@@ -1,0 +1,29 @@
+#include <bits/stdc++.h> 
+  
+using namespace std; 
+  
+
+int main() 
+{ 
+    // By default a max heap is created ordered 
+    // by first element of pair. 
+    int k=4;
+    priority_queue<pair<int, int> > pq; 
+  
+    pq.push(make_pair(0, 200)); 
+    pq.push(make_pair(5, 100)); 
+    pq.push(make_pair(2, 400)); 
+    pq.push(make_pair(9, 900));
+  
+    for(int i=0;i<k;i++){
+    pair<int, int> top = pq.top(); 
+    cout <<" the topmost sale product id is "<< top.first << " " << " the topmost sale product is "<<" "<<top.second<<endl; 
+    pq.pop();}
+    return 0; 
+} 
+
+OUTPUT
+ the topmost sale product id is 9  the topmost sale product is  900
+ the topmost sale product id is 5  the topmost sale product is  100
+ the topmost sale product id is 2  the topmost sale product is  400
+ the topmost sale product id is 0  the topmost sale product is  200
