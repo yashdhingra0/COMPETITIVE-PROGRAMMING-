@@ -1,0 +1,45 @@
+//program to check if by removing one element we can make feq of all the char in string same ?
+int getIdx(char ch) 
+{ 
+    return (ch - 'a'); 
+} 
+bool allSame(int freq[], int N) 
+{ 
+    int same; 
+   
+    for (int i = 0; i < N; i++) { 
+        if (freq[i] > 0) { 
+            same = freq[i]; 
+            break; 
+        } 
+    } 
+    for (int j = i + 1; j < N; j++) 
+        if (freq[j] > 0 && freq[j] != same) 
+            return false; 
+  
+    return true; 
+} 
+bool possibleSameCharFreqByOneRemoval(string str) 
+{ 
+    int l = str.length(); 
+    int freq[M] = { 0 }; 
+    for (int i = 0; i < l; i++) 
+        freq[getIdx(str[i])]++; 
+    if (allSame(freq, M)) 
+        return true; 
+    /*  Try decreasing frequency of all character 
+        by one and then    check all equality of all 
+        non-zero frequencies */
+    for (char c = 'a'; c <= 'z'; c++) { 
+        int i = getIdx(c); 
+      // Check character only if it occurs in str 
+        if (freq[i] > 0) { 
+            freq[i]--; //yahan hmm us char ko htake dekhenge taki baaaki ke freq check kr skeen
+        if (allSame(freq, M)) 
+                return true; 
+            freq[i]++; //agr usse htane se sbhi same nhi bnn rhe to uski freq firs bdha do
+        } 
+    } 
+  
+    return false; 
+} 
