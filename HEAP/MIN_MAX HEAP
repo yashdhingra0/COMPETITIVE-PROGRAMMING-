@@ -1,0 +1,54 @@
+//PROGRAM FOR HEAPIFY IN MAX HEAP
+
+MaxHeap::MaxHeap(int a[], int size) 
+{ 
+    heap_size = size; 
+    harr = a; // store address of array 
+    int i = (heap_size - 1) / 2; 
+    while (i >= 0) { 
+        maxHeapify(i); 
+        i--; 
+    } 
+} 
+void MaxHeap::maxHeapify(int i) 
+{ 
+    int l = left(i); 
+    int r = right(i); 
+    int largest = i; 
+    if (l < heap_size && harr[l] > harr[i]) 
+        largest = l; 
+    if (r < heap_size && harr[r] > harr[largest]) 
+        largest = r; 
+    if (largest != i) { 
+        swap(&harr[i], &harr[largest]); 
+        maxHeapify(largest); 
+    } 
+} 
+
+//FOR MIN HEAP
+MinHeap::MinHeap(int a[], int size) 
+{ 
+    heap_size = size; 
+    harr = a; // store address of array 
+    int i = (heap_size - 1) / 2; 
+    while (i >= 0) { 
+        MinHeapify(i); 
+        i--; 
+    } 
+} 
+
+
+void MinHeap::MinHeapify(int i) 
+{ 
+    int l = left(i); 
+    int r = right(i); 
+    int smallest = i; 
+    if (l < heap_size && harr[l] < harr[i]) 
+        smallest = l; 
+    if (r < heap_size && harr[r] < harr[smallest]) 
+        smallest = r; 
+    if (smallest != i) { 
+        swap(&harr[i], &harr[smallest]); 
+        MinHeapify(smallest); 
+    } 
+} 
