@@ -1,0 +1,45 @@
+void printMiddle(struct Node *head)  
+{  
+    struct Node *slow_ptr = head;  
+    struct Node *fast_ptr = head;  
+  
+    if (head!=NULL)  
+    {  
+        while (fast_ptr != NULL && fast_ptr->next != NULL)  
+        {  
+            fast_ptr = fast_ptr->next->next;  
+            slow_ptr = slow_ptr->next;  
+        }  
+        printf("The middle element is [%d]\n\n", slow_ptr->data);  
+    }  
+}  
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+
+void printMiddle(struct node* head) 
+{ 
+	int count = 0; 
+	//struct node* mid = head; 
+  struct node* temp=head;
+
+	while (head != NULL) { 
+		/* update mid, when 'count' is odd number */
+		
+
+
+		head = head->next; 
+      count++;
+	} 
+  int x=count/2;
+  while(x--)
+    temp=temp->next;
+  
+  
+    
+
+	/* if empty list is provided */
+	//if (mid != NULL) 
+		printf("The middle element is [%d]\n\n", temp->data); 
+} 
