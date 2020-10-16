@@ -12,3 +12,5 @@ struct node *lca(struct node* root, int n1, int n2)
   
     return root; 
 } 
+complexity is o(h) 
+h is the height of tree
