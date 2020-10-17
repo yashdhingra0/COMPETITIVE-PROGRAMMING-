@@ -1,0 +1,53 @@
+Input
+
+    10
+    /  \
+   /    \
+  5     20
+ / \   / \
+1   7   1  5
+
+Output
+
+      70
+    /   \
+   82   45
+  / \   / \
+83 77  60 25
+
+REVERSE INORDER SE CHLO
+
+void RevInorderAdd(node *root,int &sum) {
+   if(!root)
+      return;
+   RevInorderAdd(root->right,sum);
+   sum+=root->data;
+   root->data=sum;
+   RevInorderAdd(root->left,sum);
+}
+void AddGreater(node *root) {
+   int sum=0;
+   RevInorderAdd(root,sum);
+}
+int main() {
+   /* Let us create following BST
+      10
+      / \
+     5   20
+    / \  / \
+  1  7 15 25 */
+   node *root = NULL;
+   root = Insert(root, 10);
+   Insert(root, 20);
+   Insert(root, 25);
+   Insert(root, 15);
+   Insert(root, 5);
+   Insert(root, 7);
+   Insert(root, 1);
+   Inorder(root);
+   cout<<endl;
+   AddGreater(root);
+   Inorder(root);
+   cout<<endl;
+   return 0;
+}
