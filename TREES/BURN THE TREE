@@ -1,3 +1,19 @@
+Input : 
+                       12
+                     /     \
+                   13       10
+                          /     \
+                       14       15
+                      /   \     /  \
+                     21   24   22   23
+target node = 14
+
+Output :
+14
+21, 24, 10
+15, 12
+22, 23, 13
+
 int burnTreeUtil(Node* root, int target, queue<Node*>& q) 
 {  if(root == NULL) 
     { return 0; } 
@@ -8,7 +24,7 @@ int burnTreeUtil(Node* root, int target, queue<Node*>& q)
         {q.push(root->left); } 
         if(root->right != NULL) 
         {q.push(root->right);} 
-return 1; 
+return 1; // this will prevent further function call
     } 
       
     int a = burnTreeUtil(root->left, target, q); 
@@ -59,13 +75,6 @@ return 1;
   
     } 
 } 
-
-
-
-
-
-
-
 void burnTree(Node* root, int target)  
 {  
     queue<Node*> q;  
