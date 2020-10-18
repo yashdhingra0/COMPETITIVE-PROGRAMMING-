@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void binary(int a[],int n,int l,int h,int &ans)
+{
+    if(l>h)
+    {
+        return ;
+    }
+    
+    int mid=(l+h)/2;
+    if(a[mid]<=mid && a[mid]>0)
+    {
+        if(a[mid]==mid and mid<ans)
+            ans=mid;
+        binary(a,n,l,mid-1,ans);
+    }
+    else
+    {
+        binary(a,n,l,mid-1,ans);
+        binary(a,n,mid+1,h,ans);
+    }
+   
+}
+int main()
+{
+   
+  
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    int ans=INT_MAX;
+    binary(a,n,0,n-1,ans);
+    if(ans==INT_MAX)
+        cout<<-1<<endl;
+    else
+        cout<<ans<<endl;
+
+}
+
+input 7 
+-5 -4 -3 -2 4 5 7
+    output 
+    4 
