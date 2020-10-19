@@ -1,4 +1,8 @@
+here are given n ropes of different lengths, we need to connect these ropes into one rope. 
+The cost to connect two ropes is equal to the sum of their lengths. 
+We need to connect the ropes with minimum cost.
 #include <bits/stdc++.h> 
+
 
 using namespace std; 
 
@@ -42,7 +46,7 @@ int main()
 struct MinHeap { 
 	unsigned size; // Current size of min heap 
 	unsigned capacity; // capacity of min heap 
-	int* harr; // Attay of minheap nodes 
+	int* harr; // Array of minheap nodes 
 }; 
 struct MinHeap* createMinHeap(unsigned capacity) 
 { 
