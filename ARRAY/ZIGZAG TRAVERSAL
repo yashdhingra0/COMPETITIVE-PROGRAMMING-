@@ -1,4 +1,10 @@
 // C++ program to sort an array in Zig-Zag form 
+given an array of DISTINCT elements, rearrange the elements of array 
+A Simple Solution is to first sort the array. After sorting, exclude the first element, 
+swap the remaining elements in pairs. (i.e. keep arr[0] as it is, swap arr[1] and arr[2], swap arr[3] and arr[4], and so on). 
+
+Time complexity: O(N log N) since we need to sort the array first.
+in zig-zag fashion in O(n) time. The converted array should be in form a < b > c < d > e < f. 
 #include <iostream> 
 using namespace std; 
 
