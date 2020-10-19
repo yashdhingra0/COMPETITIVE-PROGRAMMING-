@@ -25,6 +25,7 @@ int main() {
  output 4
  
  with xor 
+ xor of two equal numbers will cancel each other so using this property we will find missing number
  int getMissingNo(int a[], int n)
 {
     // For xor of all the elements in array
