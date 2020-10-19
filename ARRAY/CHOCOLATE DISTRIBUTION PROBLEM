@@ -6,6 +6,7 @@ using namespace std;
  
 // arr[0..n-1] represents sizes of packets
 // m is number of students.
+//every student must gets atleat one packet
 // Returns minimum difference between maximum
 // and minimum values of distribution.
 int findMinDiff(int arr[], int n, int m)
