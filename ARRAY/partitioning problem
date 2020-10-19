@@ -1,5 +1,4 @@
-// C++ program to sort a string according to the 
-// order defined by a pattern string 
+
 #include <bits/stdc++.h> 
 using namespace std; 
 
@@ -57,4 +56,3 @@ bool partition(int a[],int n){
     }
 }
 
-//output should be bbbcccaaamn
