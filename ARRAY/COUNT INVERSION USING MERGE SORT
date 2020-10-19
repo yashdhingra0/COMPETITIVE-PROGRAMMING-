@@ -1,3 +1,33 @@
+
+Inversion Count for an array indicates – how far (or close)
+the array is from being sorted. If array is already sorted then inversion count is 0.
+If array is sorted in reverse order that inversion count is the maximum. 
+naive approach 
+int getInvCount(int arr[], int n) 
+{ 
+    int inv_count = 0; 
+    for (int i = 0; i < n - 1; i++) 
+        for (int j = i + 1; j < n; j++) 
+            if (arr[i] > arr[j]) 
+                inv_count++; 
+  
+    return inv_count; 
+} 
+example 
+nput: arr[] = {8, 4, 2, 1}
+Output: 6
+
+Explanation: Given array has six inversions:
+(8, 4), (4, 2), (8, 2), (8, 1), (4, 1), (2, 1).
+
+
+Input: arr[] = {3, 1, 2}
+Output: 2
+
+Explanation: Given array has two inversions:
+(3, 1), (3, 2) 
+
+//phehle merge sort call krwao then _merge krwao usme divide and conquer lgake final merge function call krwao  
 // C++ program to Count 
 // Inversions in an array 
 // using Merge Sort 
@@ -45,7 +75,8 @@ int merge(int arr[], int temp[], int left,
 		} 
 		else { 
 			temp[k++] = arr[j++]; 
-           inv_count = inv_count + (mid - i); ///////////////IMPORTANT STEP//////////////////////////////////
+           inv_count = inv_count + (mid - i); ///////////////IMPORTANT STEP//////////isme ye hua ki jb dusre sorted part se element aaya temp to unke beech mm difff 
+	                                                                                   mid-i hoga us time 
 		} 
 	} 
 while (i <= mid - 1) 
