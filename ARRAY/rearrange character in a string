@@ -45,11 +45,11 @@ Key prev {-1, '#'} ;
 		// pop top element from queue and add it 
 		// to string. 
 		Key k = pq.top(); 
-		pq.pop(); 
+		pq.pop(); //yahan jiski max hogi vo pop hogyaa
 		str = str + k.ch; 
-	if (prev.freq > 0) ///////////////////////////most imp step
-			pq.push(prev); 
-(k.freq)--; 
+	if (prev.freq > 0){ ///////////////////////////most imp step
+			pq.push(prev); }
+                (k.freq)--; 
 		prev = k; 
 	} 
 	if (n != str.length()) 
