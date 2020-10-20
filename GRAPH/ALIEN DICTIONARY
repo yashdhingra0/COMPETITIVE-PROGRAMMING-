@@ -1,4 +1,13 @@
- 
+Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
+Output: Order of characters is 'b', 'd', 'a', 'c'
+Note that words are sorted and in the given language "baa" 
+comes before "abcd", therefore 'b' is before 'a' in output.
+Similarly we can find other orders.
+
+Input:  words[] = {"caa", "aaa", "aab"}
+Output: Order of characters is 'c', 'a', 'b'
+The idea is to create a graph of characters and then find topological sorting of the created graph. 
+
 class Graph 
 { 
 	int V; // No. of vertices' 
@@ -24,6 +33,7 @@ void Graph::addEdge(int v, int w)
 { 
 	adj[v].push_back(w); // Add w to v’s list. 
 } 
+
 
 // A recursive function used by topologicalSort 
 void Graph::topologicalSortUtil(int v, bool visited[], stack<int> &Stack) 
