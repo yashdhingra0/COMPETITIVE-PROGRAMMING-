@@ -1,0 +1,24 @@
+ALGORITHM
+InsertionSort(array)
+  mark first element as sorted
+  for each unsorted element X
+    'extract' the element X
+    for j <- lastSortedIndex down to 0
+      if current element j > X
+        move sorted element to the right by 1
+    break loop and insert X here
+end insertionSort
+
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+void insertionSort(int array[], int size) {
+  for (int i= 1; i < size; i++) {
+     int key=a[i]; //ye wali value store krwa li maan lo
+     int hole=i;  //maano 1st pe hole krdiya 
+
+    while (key < array[hole-1] && hole >= 0) {
+      a[hole]=a[hole-1];
+    hole=hole-1;
+    }
+   a[hole]=key;
+  }
+}
