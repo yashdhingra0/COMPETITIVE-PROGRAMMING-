@@ -1,0 +1,46 @@
+Input:   arr[] = {1, 1, 3, 3, 4, 5, 5, 7, 7, 8, 8}
+Output:  4
+
+Input:   arr[] = {1, 1, 3, 3, 4, 4, 5, 5, 7, 7, 8}
+Output:  8
+All elements before the required have the first occurrence at even index (0, 2, ..)
+and next occurrence at odd index (1, 3, …). And all elements after the required elements
+have the first occurrence at odd index and next occurrence at even index. 
+
+void search(int arr[], int low, int high) 
+{ 
+      
+    // Base cases 
+    if (low > high) 
+        return; 
+  
+    if (low == high) 
+    { 
+        cout << "The required element is " 
+             << arr[low]; 
+        return; 
+    } 
+  
+    // Find the middle point 
+    int mid = (low + high) / 2; 
+  
+    // If mid is even and element next to mid is 
+    // same as mid, then output element lies on 
+    // right side, else on left side 
+    if (mid % 2 == 0) 
+    { 
+        if (arr[mid] == arr[mid + 1]) //agr mid  even pe hh to agr next elemtn same hh to abhi tk sbh shi chla hh to search kroo mid +2 mm nhi to piche aao 
+            search(arr, mid + 2, high); 
+        else
+            search(arr, low, mid); 
+    } 
+      
+    // If mid is odd and mid and mid-1 equal nhi hh to piche hi gadbad hh agr equal hn to abhi tk sbh shi and agge jao
+    else 
+    { 
+        if (arr[mid] == arr[mid - 1]) 
+            search(arr, mid + 1, high); 
+        else
+            search(arr, low, mid - 1); 
+    } 
+} 
