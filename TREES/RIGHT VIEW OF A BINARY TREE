@@ -1,0 +1,63 @@
+void rightViewUtil(struct Node *root, 
+				int level, int *max_level) 
+{ 
+	// Base Case 
+	if (root == NULL) return; 
+
+	// If this is the last Node of its level 
+	if (*max_level < level) 
+	{ 
+		cout << root->data << "\t"; 
+		*max_level = level; 
+	} 
+
+	// Recur for right subtree first, 
+	// then left subtree 
+	 rightViewUtil(root->right, level + 1, max_level); // LEFT VIEW MM YE BAAD MM AAYEGA ONLY SIMPLE CHANGE MTLB PHEHLE LEFT SUBTREE CHLENGE 
+	rightViewUtil(root->left, level + 1, max_level); 
+  
+} 
+
+// A wrapper over rightViewUtil() 
+void rightView(struct Node *root) 
+{ 
+	int max_level = 0; 
+	rightViewUtil(root, 1, &max_level); 
+} 
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||USING QUEUE|||||||||||||||||||||||||||||||||||||||||||||||
+
+oid printRightView(Node* root) 
+{ 
+    if (!root) 
+        return; 
+  
+    queue<Node*> q; 
+    q.push(root); 
+  
+    while (!q.empty()) 
+    {     
+        // number of nodes at current level 
+        int n = q.size(); 
+          
+        // Traverse all nodes of current level  
+        for(int i = 1; i <= n; i++) 
+        { 
+            Node* temp = q.front(); 
+            q.pop(); 
+                  
+            // Print the right most element  
+            // at the level 
+            if (i == n) 
+                cout<<temp->data<<" "; 
+              
+            // Add left node to queue 
+            if (temp->left != NULL) 
+                q.push(temp->left); 
+  
+            // Add right node to queue 
+            if (temp->right != NULL) 
+                q.push(temp->right); 
+        } 
+    } 
+}     
