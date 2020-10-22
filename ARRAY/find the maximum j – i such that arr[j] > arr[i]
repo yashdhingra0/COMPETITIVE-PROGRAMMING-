@@ -1,0 +1,69 @@
+Input: {34, 8, 10, 3, 2, 80, 30, 33, 1}
+  Output: 6  (j = 7, i = 1)
+
+  Input: {9, 2, 3, 4, 5, 6, 7, 8, 18, 0}
+  Output: 8 ( j = 8, i = 0)
+
+  Input:  {1, 2, 3, 4, 5, 6}
+  Output: 5  (j = 5, i = 0)
+
+  Input:  {6, 5, 4, 3, 2, 1}
+  Output: -1 
+  
+  SIMPLE APPROACH::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  int maxIndexDiff(int arr[], int n)
+{
+    int maxDiff = -1;
+    int i, j;
+ 
+    for (i = 0; i < n; ++i) {
+        for (j = n - 1; j > i; --j) {
+            if (arr[j] > arr[i] && maxDiff < (j - i))
+                maxDiff = j - i;
+        }
+    }
+ 
+    return maxDiff;
+}
+
+
+ADVANCED APPROACH::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main()
+{
+    vector<long long int> v{ 34, 8, 10, 3, 2, 80, 30, 33, 1 };
+    int n = v.size();
+    vector<long long int> maxFromEnd(n + 1, INT_MIN);
+ 
+    // create an array maxfromEnd
+    for (int i = v.size() - 1; i >= 0; i--) {
+        maxFromEnd[i] = max(maxFromEnd[i + 1], v[i]);
+    }
+ 
+    int result = 0;
+    for (int i = 0; i < v.size(); i++) {
+    int low = i + 1, high = v.size() - 1, ans = i;
+ 
+        while (low <= high) {
+            int mid = (low + high) / 2;
+ 
+            if (v[i] <= maxFromEnd[mid]) {
+                // we store this as current answer and look
+                // for further larger number to the right side
+                ans = max(ans, mid);
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
+        // keeping a track of the
+        // maximum difference in indices
+        result = max(result, ans - i);
+    }
+    cout << result << endl;
+}
