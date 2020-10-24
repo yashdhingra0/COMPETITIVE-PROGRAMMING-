@@ -13,7 +13,7 @@ void topView(struct Node *root)
 for(int i=0;i<size;i++){ 
     pair<Node*,int> curr=q.front();
 q.pop();
-if(m.find(curr.second)==m.end())
+if(m.find(curr.second)==m.end()) // if not 
 m[curr.second]=curr.first->data;
 
 if(curr.first->left)
