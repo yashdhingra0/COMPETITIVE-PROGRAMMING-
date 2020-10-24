@@ -1,0 +1,72 @@
+// C++ Program to print Bottom View of Binary Tree 
+#include<bits/stdc++.h> 
+using namespace std; 
+
+// Tree node class 
+struct Node 
+{ 
+	int data; //data of the node 
+	int hd; //horizontal distance of the node 
+	Node *left, *right; //left and right references 
+
+	// Constructor of tree node 
+	Node(int key) 
+	{ 
+		data = key; 
+		hd = INT_MAX; 
+		left = right = NULL; 
+	} 
+}; 
+
+// Method that prints the bottom view. 
+void bottomView(Node *root) 
+{ 
+    map<int,int>m;
+    queue< pair<Node*,int>>q;
+    q.push(make_pair(root,0));
+    while(!q.empty()){
+
+    int size=q.size();
+
+for(int i=0;i<size;i++){ 
+    pair<Node*,int> curr=q.front();
+q.pop();
+if(m.find(curr.second)==m.end()) // if not 
+m[curr.second]=curr.first->data;
+    else // ONLY THIS LINE DIFF IS IN TOP AND BOTTOM VIEW
+   m[curr.second]=curr.first->data;
+        
+
+if(curr.first->left)
+q.push(make_pair(curr.first->left,curr.second-1));
+
+if(curr.first->right)
+q.push(make_pair(curr.first->right,curr.second+1));
+
+}
+    
+    }
+    for(auto it: m){
+cout<<it.second<<" ";
+}}
+
+
+
+// Driver Code 
+int main() 
+{ 
+	Node *root = new Node(20); 
+	root->left = new Node(8); 
+	root->right = new Node(22); 
+	root->left->left = new Node(5); 
+	root->left->right = new Node(3); 
+	root->right->left = new Node(4); 
+	root->right->right = new Node(25); 
+	root->left->right->left = new Node(10); 
+	root->left->right->right = new Node(14); 
+	//cout << "Bottom view of the given binary tree :\n"
+	bottomView(root); 
+	return 0; 
+} 
+OUTPUT Bottom view of the given binary tree:
+5 10 4 14 25
