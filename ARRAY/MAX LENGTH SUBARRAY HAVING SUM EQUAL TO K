@@ -1,0 +1,123 @@
+there are two approaches for it one is by counting all the subarray having sum qual to k and return the max length sub array 
+seconnd approach is by hashing store the sum in hash map with index in a pair format 
+ALGORITHM:
+    Initialize sum = 0 and maxLen = 0.
+    Create a hash table having (sum, index) tuples.
+    For i = 0 to n-1, perform the following steps:
+        Accumulate arr[i] to sum.
+        If sum == k, update maxLen = i+1.
+        Check whether sum is present in the hash table or not. If not present, then add it to the hash table as (sum, i) pair.
+        Check if (sum-k) is present in the hash table or not. If present, then obtain index of (sum-k) from the hash table as index.
+	Now check if maxLen < (i-index), then update maxLen = (i-index).
+    Return maxLen.
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,k;
+	    cin>>n>>k;
+	    int a[n];
+	    for(int i=0;i<n;i++){
+	        cin>>a[i];
+	    }
+	    unordered_map<int,int>m;
+	    int sum=0;
+	    int maxl=0;
+	    for(int i=0;i<n;i++){
+	        sum=sum+a[i];
+	        if(sum==k){
+	            maxl=i+1;
+	        }
+	        
+	        if(m.find(sum)==m.end()){
+	        m[sum]=i;}
+	        if(m.find(sum-k)!=m.end()){
+	        if(maxl<i-m[sum-k]){
+	            maxl=i-m[sum-k];
+	        }}
+	        
+	        
+	        
+	    }
+	    cout<<maxl<<endl;
+	}
+	return 0;
+}
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////using binary search///////
+
+vector<int> v; 
+  
+// Function for searching the 
+// lower bound of the subarray 
+int bin(int val, int k, int n) 
+{ 
+    int lo = 0; 
+    int hi = n; 
+    int mid; 
+    int ans = -1; 
+  
+    // Iterate until low less 
+    // than equal to high 
+    while (lo <= hi) { 
+        mid = lo + (hi - lo) / 2; 
+  
+        // For each mid finding sum 
+        // of sub array less than 
+        // or equal to k 
+        if (v[mid] - val <= k) { 
+            lo = mid + 1; 
+            ans = mid; 
+        } 
+        else
+            hi = mid - 1; 
+    } 
+  
+    // Return the final answer 
+    return ans; 
+} 
+  
+// Function to find the length of 
+// subarray with sum K 
+void findSubarraySumK(int arr[], 
+                      int N, int K) 
+{ 
+  
+    // Initialize sum to 0 
+    int sum = 0; 
+    v.push_back(0); 
+  
+    // Push the prefix sum of the 
+    // array arr[] in prefix[] 
+    for (int i = 0; i < N; i++) { 
+  
+        sum += arr[i]; 
+        v.push_back(sum); 
+    } 
+  
+    int l = 0, ans = 0, r; 
+  
+    for (int i = 0; i < K; i++) { 
+  
+        // Search r for each i 
+        r = bin(v[i], K, N); 
+  
+        // Update ans 
+        ans = max(ans, r - i); 
+    } 
+  
+    // Print the length of subarray 
+    // found in the array 
+    cout << ans; 
+} 
