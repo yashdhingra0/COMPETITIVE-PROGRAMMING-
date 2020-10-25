@@ -1,0 +1,28 @@
+void maxDiffUtil(struct Node *ptr, int k, int &min_diff, 
+                                      int &min_diff_key) 
+{ 
+    if (ptr == NULL) 
+        return ; 
+  
+    // If k itself is present 
+    if (ptr->key == k) 
+    { 
+        min_diff_key = k; 
+        return; 
+    } 
+  
+    // update min_diff and min_diff_key by checking 
+    // current node value 
+    if (min_diff > abs(ptr->key - k)) 
+    { 
+        min_diff = abs(ptr->key - k); 
+        min_diff_key = ptr->key; 
+    } 
+  
+    // if k is less than ptr->key then move in 
+    // left subtree else in right subtree 
+    if (k < ptr->key) 
+        maxDiffUtil(ptr->left, k, min_diff, min_diff_key); 
+    else
+        maxDiffUtil(ptr->right, k, min_diff, min_diff_key); 
+} 
