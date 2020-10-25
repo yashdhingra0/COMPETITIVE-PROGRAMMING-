@@ -1,0 +1,22 @@
+int kLeaves(struct Node *ptr,int k) 
+{ 
+    // Base Conditions : No leaves 
+    if (ptr == NULL) 
+        return 0; 
+  
+    // if node is leaf 
+    if (ptr->left == NULL && ptr->right == NULL) 
+        return 1; 
+  
+    // total leaves in subtree rooted with this 
+    // node 
+    int total = kLeaves(ptr->left, k) + 
+                kLeaves(ptr->right, k); 
+  
+    // Print this node if total is k 
+    if (k == total) 
+        cout << ptr->data << " "; 
+  
+    return total; // LAST MM RETURN KRDENGE TOTAL 
+} 
+  
