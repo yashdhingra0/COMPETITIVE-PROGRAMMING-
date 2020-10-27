@@ -1,0 +1,33 @@
+Input:
+        {0, 1, 0, 0, 1}
+        {1, 0, 1, 1, 0}
+        {0, 1, 0, 0, 1}
+        {1, 1, 1, 0, 0}
+Output:
+    0 1 0 0 1 
+    1 0 1 1 0 
+    1 1 1 0 0 
+Explanation: 
+The rows are r1={0, 1, 0, 0, 1}, 
+r2={1, 0, 1, 1, 0}, r3={0, 1, 0, 0, 1}, 
+r4={1, 1, 1, 0, 0}, As r1 = r3, remove r3
+and print the other rows.
+
+1ST SOLN  USING SET
+
+void findUniqueRows(int M[R][C])
+
+set<string> m;
+for(int i=0;i<R;i++)
+{  
+    string str="";
+    for(int j=0;j<C;j++){
+         str+=M[i][j];}
+         m.insert(str);
+     `}
+
+for (std::set<string>::iterator it=m.begin(); it!=m.end(); ++it)
+std::cout << it->first << '\n';
+
+
+2nd soln can be solved using trie
