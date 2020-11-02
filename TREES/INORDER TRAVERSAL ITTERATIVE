@@ -1,0 +1,45 @@
+1. Recursive solution. Time: O(n), Space: O(n).
+
+class Solution {
+public:
+    vector<int> result;
+    vector<int> inorderTraversal(TreeNode* root) {
+        inorder(root);
+        return result;
+    }
+    
+    void inorder(TreeNode* root) {
+        if(root == NULL) {
+            return;
+        }
+        inorder(root->left);
+        result.push_back(root->val);
+        inorder(root->right);
+    }
+};
+
+ITTERATIVE APPROACH|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+class Solution {
+public:
+
+    vector<int> inorderTraversal(TreeNode* root) {
+        stack<TreeNode*> stk;
+        vector<int> result;
+        
+        TreeNode* curr = root;
+        while(curr || !stk.empty()) {
+            if(curr) {
+                stk.push(curr);
+                curr = curr->left;
+            } else {
+                result.push_back(stk.top()->val);
+                curr = stk.top()->right;
+                stk.pop();
+            }
+        }
+        
+        return result;
+    }
+    
+};
