@@ -1,69 +1,74 @@
-void leftViewUtil(node* root, int level, int* max_level) 
-{ 
-    // Base Case 
-    if (root == NULL) 
-        return; 
-  
-    // If this is the first node of its level 
-    if (*max_level < level) { 
-        cout << root->data << "\t"; 
-        *max_level = level; 
-    } 
-  
-    // Recur for left and right subtrees 
-    leftViewUtil(root->left, level + 1, max_level); 
-    leftViewUtil(root->right, level + 1, max_level); 
-} 
+ itterative approach
+// Iterative function to print left view of given binary tree
+void leftView(Node* root)
+{
+	// return if tree is empty
+	if (root == nullptr)
+		return;
+
+	// create an empty queue and enqueue root node
+	list<Node*> queue;
+	queue.push_back(root);
+
+	// pointer to store current node
+	Node* curr = nullptr;
+
+	// loop till queue is empty
+	while (!queue.empty())
+	{
+		// calculate number of nodes in current level
+		int size = queue.size();
+		int i = 0;
+
+		// process every node of current level and enqueue their
+		// non-empty left and right child to queue
+		while (i++ < size)
+		{
+		   curr = queue.front();
+		   queue.pop_front();
+
+		   // if this is first node of current level, print it
+		   if (i == 1)
+				cout << curr->key << " ";
+
+		   if (curr->left)
+				queue.push_back(curr->left);
+
+		   if (curr->right)
+				queue.push_back(curr->right);
+		}
+	}
+}
 
 
-void leftViewUtil(struct node* root, queue<node*>& q) 
-{ 
-    if (root == NULL) 
-        return; 
-  
-    // Push root 
-    q.push(root); 
-  
-    // Delimiter 
-    q.push(NULL); 
-  
-    while (!q.empty()) { 
-        node* temp = q.front(); 
-  
-        if (temp) { 
-  
-            // Prints first node 
-            // of each level 
-            cout << temp->data << " "; 
-  
-            // Push children of all nodes at 
-            // current level 
-            while (q.front() != NULL) { // JB TK Q MM NULL HI AATA JITNI NODES HN UNKE CHILD DALWATA JA AND JAISE HI NULL AAYE NULL PUSH KRKE PHEHLE WALA PRINT KRDE
-  
-                // If left child is present 
-                // push into queue 
-                if (temp->left) 
-                    q.push(temp->left); 
-  
-                // If right child is present 
-                // push into queue 
-                if (temp->right) 
-                    q.push(temp->right); 
-  
-                // Pop the current node 
-                q.pop(); 
-  
-                temp = q.front(); 
-            } 
-  
-            // Push delimiter 
-            // for the next level 
-            q.push(NULL); 
-        } 
-  
-        // Pop the delimiter of 
-        // the previous level 
-        q.pop(); 
-    } 
-} 
-  
+
+Recursive using map
+// traverse nodes in pre-order fashion
+void leftView(Node *root, int level, auto &map)
+{
+	if (root == nullptr)
+		return;
+
+	// if level is visited for the first time, insert the current node
+	// and level information into the map
+	if (map.find(level) == map.end())
+		map[level] = root->key;
+
+	leftView(root->left, level + 1, map);
+	leftView(root->right, level + 1, map);
+}
+
+// Function to print left view of given binary tree
+int leftView(Node *root)
+{
+	// create an empty map to store first node for each level
+	unordered_map<int, int> map;
+
+	// traverse the tree and fill map
+	leftView(root, 1, map);
+
+	// iterate through the map and print left view
+	for (int i = 1; i <= map.size(); i++)
+		cout << map[i] << " ";
+}
+
