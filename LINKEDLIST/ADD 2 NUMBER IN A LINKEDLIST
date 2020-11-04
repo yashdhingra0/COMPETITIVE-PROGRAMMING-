@@ -4,7 +4,57 @@ ListNode* Solution::addTwoNumbers(ListNode* A, ListNode* B) {
     // Do not print the output, instead return values as specified
     // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
     
-    if(A == NULL){
+  
+  ListNode* addTwoNumbers(ListNode* first, ListNode* second) {
+        
+        int num1 = 0, num2 = 0,sum = 0, carry = 0;
+        ListNode* sumHead = new ListNode(0);
+        ListNode* current = sumHead;
+        while(first!=NULL or second!=NULL){
+            
+            if(first)
+            {
+            num1 = first->val;
+            first=first->next;
+            }
+            else
+            num1 = 0;
+            
+           if(second)
+           {
+            num2 = second->val;
+            second=second->next;
+           }
+            else
+            num2 = 0;
+           
+            sum = num1 + num2 + carry;
+            carry = sum/10;
+            sum = sum%10;
+            ListNode* temp = new ListNode(sum);
+            current->next = temp;
+            current = current->next;
+            
+        }
+        if(carry!=0){
+            ListNode* temp = new ListNode(carry);
+            current->next = temp;
+            current = current->next;
+        }
+  
+        return sumHead->next;
+    }
+  
+  
+  
+  
+  
+  
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| 
+  
+  
+  
+  if(A == NULL){
         return B;
     }
     else if(B == NULL){
