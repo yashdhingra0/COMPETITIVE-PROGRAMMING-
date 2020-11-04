@@ -1,0 +1,44 @@
+
+void removeLoop(struct ListNode *head)
+{
+    struct ListNode *slow = head;
+    struct ListNode *fast = head;
+    // Boolean to check if there a loop exists in the given Linked List.
+    int flag = 0;
+    // Traverse the list until ptr2 or ptr2.next is null.
+    while (fast != NULL && fast->next != NULL)
+    { slow = slow->next;
+        fast = fast->next->next;
+       
+        if (slow == fast)
+        {
+            flag = 1;
+            break;
+        }
+    }
+    // When there is a loop in the Linked List.
+    if (flag)
+    {    slow = head;
+        while (slow->next != fast->next)
+        {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        fast->next = NULL;
+    }
+}
+
+
+    // 2->8->3->5->10--
+    //   	^    	|
+    //   	|    	|
+    //   	|_ _ __ _|
+    removeLoop(head);
+    while (head != NULL)
+    {
+        printf("%d->", head->val);
+        head = head->next;
+    }
+    printf("NULL");
+    return 0;
+}
