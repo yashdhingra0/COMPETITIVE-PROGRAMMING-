@@ -1,0 +1,26 @@
+lass Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int pivot = -1;
+        for(int i = nums.size()-1; i > 0; i--){
+            if(nums[i] > nums[i-1]){
+                pivot = i - 1;
+                break;
+            }
+        }
+        if(pivot == -1){
+            reverse(begin(nums), end(nums));
+        }else{
+            int num = nums[pivot];
+            int nextLargeIndex = nums.size()-1;
+            for(int i = nextLargeIndex; i > pivot ; i--){
+                if(nums[i] > num){
+                    nextLargeIndex = i;
+                    break;
+                }
+            }
+            swap(nums[pivot], nums[nextLargeIndex]);
+            reverse(nums.begin()+pivot+1, nums.end());
+        }
+    }
+};
