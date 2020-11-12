@@ -1,0 +1,3 @@
+In order to make our heap work efficiently, we will take advantage of the logarithmic nature of the binary tree to represent our heap
+our heap implementation we keep the tree balanced by creating a complete binary tree. A complete binary tree is a tree in which each level 
+has all of its nodes. The exception to this is the bottom level of the tree,
