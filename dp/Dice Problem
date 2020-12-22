@@ -1,0 +1,50 @@
+
+/IN THIS WE HAVE TO FIND THE ALL POSSIBLE WAYS TO GET A SUM AFTER ROLLING A DICE 
+#include <bits/stdc++.h>
+#define endl '\n'
+#define llu long long unsigned int
+#define ll long long
+#define vi vector<int>
+#define pb push_back
+#define test  \
+    int t;    \
+    cin >> t; \
+    while (t--)
+#define MOD 1000000007
+#define fr(n) for (int i = n - 1; i >= 0; i--)
+#define f(n) for (int i = 0; i < n; i++)
+#define f1(n) for (int i = 1; i < n+1; i++)
+#define fin(i, a, n) for (int i = a; i < n; i++)
+#define arr(a, n) \
+    int a[n];     \
+    f(n) { cin >> a[i]; }
+#define arrp(a, n)                \
+    f(n) { cout << a[i] << " "; } \
+    sout("")
+#define sout(n) cout << (n) << endl;
+ 
+using namespace std;
+ 
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+	int n;
+	cin>>n;
+	vector<int>dp(n+1,0);
+	dp[0]=1;//FOR GETTING 0 AS A SUM WE NOT NEED TO ROLL A DICE SO ONLY 1 WAY 
+	f1(n)
+	for(int x=1;x<6;x++){
+		if(x>i)
+			break;
+		dp[i]+=dp[i-x];//SUMMATION OF ALL THE POSSIBLE WAYS 
+	}
+
+
+	cout<<dp[n]<<endl;
+	return 0;
+}
