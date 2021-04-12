@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+int f=0;
+
+void bipartite(int src, int par,int col,vector<int> &color, vector<int> g[]){
+    color[src]=col;
+    for(auto x: g[src]){
+        if(!color[x]){
+            bipartite(x,src,3-col,color,g);
+        }
+        else if(x!=par && col==color[x]){
+            f=1;
+            break;
+        }
+    }
+}
+
+void twoclique(){
+    int v,e;
+    cin>>v>>e;
+    vector<int>g[v];
+    for(int i=0;i<e;i++){
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    vector<int>reverse[v]// FOR CREATING REVERSE GRPH OF ORIGINAL GRAPH 
+    vector<int>dummy(v,0);// FRO STORING THE DUMMY VALUES 
+    for(int i=0;i<v;i++){
+        dummy[i]=1;
+        for(auto x: g[i]){
+            dummy[x]=1;
+        }
+        for(int j=0;j<v;j++){
+            if(dummy[j]==0){
+                reverse[i].push_back(j);
+                reverse[j].push_back(i);
+            }
+        }
+        dummy.clear();
+    }
+
+
+    
+vector<int>color(v,0);// FOR BIPARTITE 
+    bipartite(0,0,1,color,reverse);
+    if(!f)
+        cout<<"two clique"<<endl;
+    else
+        cout<<"not possible"<<endl;
+}
+int main(){
+    twoclique();
+return 0;
+}
+
