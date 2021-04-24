@@ -56,3 +56,14 @@ Initially, l and r will be equal to 0 and n-1 respectively, where n is the lengt
     // Key not found
     return -1;
 }
+
+
+
+ime Complexity: 
+
+O(log _{3} n)
+
+, where n is the size of the array.
+
+Uses: In finding the maximum or minimum of a unimodal function.
+      Hackerearth Problems on Ternary search
