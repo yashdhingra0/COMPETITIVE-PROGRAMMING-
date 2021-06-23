@@ -1,0 +1,80 @@
+
+///SEARCH...............................................................................
+struct node* SEARCH(struct node* root, int key)
+{
+    // Base Cases: root is null or key is present at root
+    if (root == NULL || root->key == key)
+       return root;
+    
+    // Key is greater than root's key
+    if (root->key < key)
+       return SEARCH(root->right, key);
+ 
+    // Key is smaller than root's key
+    return SEARCH(root->left, key);
+}
+
+///INSERT........................................................................................
+BST* BST ::Insert(BST* root, int value)
+{
+    if (!root)
+    {
+        return new BST(value);         // Insert the first node, if root is NULL.
+    }
+
+    if (value > root->data)
+    {
+        root->right = Insert(root->right, value);
+    }
+    else
+    {
+        root->left = Insert(root->left, value);
+    }
+    return root;
+}
+
+///DELETE OPERATION...........................................................................................
+Node* FindMin(Node* root)
+{
+	while(root->left != NULL) root = root->left;
+	return root;
+}
+
+// Function to search a delete a value from tree.
+struct Node* Delete(struct Node *root, int data) {
+	if(root == NULL) return root; 
+	else if(data < root->data) root->left = Delete(root->left,data);
+	else if (data > root->data) root->right = Delete(root->right,data);
+	// Wohoo... I found you, Get ready to be deleted	
+	else {
+		// Case 1:  No child
+		if(root->left == NULL && root->right == NULL) { 
+			delete root;
+			root = NULL;
+		}
+		//Case 2: One child 
+		else if(root->left == NULL) {
+			struct Node *temp = root;
+			root = root->right;
+			delete temp;
+		}
+		else if(root->right == NULL) {
+			struct Node *temp = root;
+			root = root->left;
+			delete temp;
+		}
+		// case 3: 2 children
+		else { 
+			struct Node *temp = FindMin(root->right);
+			root->data = temp->data;
+			root->right = Delete(root->right,temp->data);
+		}
+	}
+	return root;
+}
+ 
+
+
+
+
+
