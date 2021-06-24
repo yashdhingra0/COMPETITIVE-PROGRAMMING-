@@ -27,50 +27,23 @@ The merged list should be :
      cout<<endl;
  }
  */
-ListNode* Solution::mergeTwoLists(ListNode* A, ListNode* B) {
-    // Do not write main() function.
-    // Do not read input, instead use the arguments to the function.
-    // Do not print the output, instead return values as specified
-    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
-    ListNode *c1=A;
-    ListNode *c2=B;
-    ListNode *res=NULL;
-    if(c1->val<=c2->val){
-        res=c1;
-        c1=c1->next;
-        res->next=NULL;
-    }
-    else{
-        res=c2;
-         c2=c2->next;
-        res->next=NULL;
-    }
- //  print(res);
-    ListNode *temp=res;
-    while(c1!=NULL&&c2!=NULL){
-       // cout<<c1->val<<" "<<c2->val<<endl;
-        if(c1->val<=c2->val){
-            temp->next=c1;
-            c1=c1->next;
-            temp=temp->next;
-            temp->next=NULL;
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+       ListNode* res=NULL;
+        if(!l1){
+            return l2;
+        }
+        else if(!l2){
+            return l1;
+        }
+        if(l1->val<l2->val){
+            res=l1;
+            res->next=mergeTwoLists(l1->next,l2);
         }
         else{
-            temp->next=c2;
-            c2=c2->next;
-            temp=temp->next;
-            temp->next=NULL;
+            res=l2;
+            res->next=mergeTwoLists(l1,l2->next);
+            
         }
-      // print(res);
-    }
-    if(c1==NULL&&c2!=NULL){
-        temp->next=c2;
         return res;
     }
-    else if(c1!=NULL&&c2==NULL){
-        temp->next=c1;
-        return res;
-    }
-    else
-     return res;
-}
+};
