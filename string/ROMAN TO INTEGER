@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        map<char,int>m;
+        int n=s.length();
+        m['I']=1;
+         m['V']=5;
+         m['X']=10;
+         m['L']=50;
+         m['C']=100;
+         m['D']=500;
+         m['M']=1000;
+        int result=0;
+        int temp=m[s[0]];
+        for(int i=0;i<n-1;i++){
+            int next=m[s[i+1]];
+            if(temp<next){
+                result-=temp;
+            }
+            else{
+                result+=temp;
+            }
+            temp=next;
+            
+            
+            
+        }
+        return result+temp;
+        
+        
+        
+    }
+};
