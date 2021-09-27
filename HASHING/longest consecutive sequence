@@ -1,0 +1,21 @@
+int longestConsecutiveSequence(vector<int> &A) {
+    unordered_map<int, int> countAllElements;
+	int n = A.size();
+	for (int i = 0; i < n; i++) {
+		countAllElements[A[i]] = 1;
+	}
+	int ans = 0, currentSequence = 0;
+	for (int i = 0; i < n; i++) {
+		if (countAllElements[A[i] - 1] == 1) {
+		    continue;
+		} 
+		currentSequence = 0;
+		int value = A[i];
+		while (countAllElements[value] == 1) {
+			currentSequence++;
+			value++;
+		}
+		ans = max (ans, currentSequence);
+	}
+	return ans;
+}
