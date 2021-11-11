@@ -1,4 +1,22 @@
 APPROACH KI 2 LOOP USE KROO I AND J KO I+1 SE CHLAO I KE BAAD NEXT VARIABLE USE KROO -1 SE INTIALIZE KRKE AND CHECKKROO IF A[J]>A[I] NEXT=A[J] AND PRINT NEXT KRDO 
+void printNGE(int arr[], int n)
+{
+    int next, i, j;
+    for (i = 0; i < n; i++)
+    {
+        next = -1;
+        for (j = i + 1; j < n; j++)
+        {
+            if (arr[i] < arr[j])
+            {
+                next = arr[j];
+                break;
+            }
+        }
+        cout << arr[i] << " -- "
+             << next << endl;
+    }
+}
 STACK USE KRLO STACK MM A[0] PUSH KRDO AND THEN ARRAY TRAVERSE KROO AGR ARRAY KA ELEMENT STACK KE TOP SE JYAD ATA HH TO USE PRINT KRA DO AND POP KRDO OTHER WISE PUSH KRDO AND LAST MM JITNE 
 BHI ELEEMNT BCCH JAYEN UNKE LIYE -1 PRINT KRWA DO
 
