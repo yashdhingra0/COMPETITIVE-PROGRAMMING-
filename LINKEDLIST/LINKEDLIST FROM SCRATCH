@@ -1,0 +1,88 @@
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node* next;
+};
+node *head, *tail;
+class linkedlist{
+      public:
+     linkedlist(){
+        head = NULL;
+        tail = NULL;
+        
+    }
+    public:
+    void add(int n){
+        node* temp=new node();
+        temp->data=n;
+        temp->next=NULL;
+        if(head==NULL){
+            head=temp;
+            tail=temp;
+            
+        }
+        else{
+            tail->next=temp;
+            tail=tail->next;
+        }
+    }
+    void deletee(){
+      int count=0;
+    node*temp=head;
+     node* p=NULL;
+        node* q=head; 
+    while(temp!=NULL){
+        temp=temp->next;
+        count++;
+    }
+        int x=count-1;
+    if(head==NULL){
+        cout<<"CAN NOT DELETE EMPTY LIST";}
+  
+    else{
+        while(q!=tail){
+            p=q;
+            q=q->next;
+        }
+        tail=p;
+        free(q);
+        
+        tail->next=NULL;
+        }
+}
+
+};
+
+void print(node* head){
+    node* temp=head;
+    if(head==NULL){
+        cout<<"list s empty";}
+    else{
+        while(temp!=NULL){
+        cout<<temp->data;
+        temp=temp->next;}
+    }
+}
+
+
+
+
+int main()
+{
+	linkedlist a;
+    a.add(5);
+    a.add(6);
+   
+    a.add(7);
+      a.add(9);
+    a.deletee();
+    a.add(8);
+    a.deletee();
+    a.add(10);
+    print(head);
+    return 0;
+    
+}
