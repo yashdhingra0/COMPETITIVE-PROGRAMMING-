@@ -27,15 +27,16 @@ link:https://sapphireengine.com/@/kl6t9c
   void heapSort(int arr[], int n) {
     // Build max heap
     for (int i = n / 2 - 1; i >= 0; i--)
-      heapify(arr, n, i);
+    {
+      heapify(arr, n, i);        //yahan heap to bnn gyee ab extraction krna hh to uske liye hmm top wale ko last pe shift krke baaki pe fir se heapify chla denge
+    }
   
     // Heap sort
-    for (int i = n - 1; i >= 0; i--) {
+    for (int i = n - 1; i >= 0; i--) 
+    {
       swap(arr[0], arr[i]);
-  
-      // Heapify root element to get highest element at root again
-      heapify(arr, i, 0);
-    }
+      heapify(arr, i, 0);             // Heapify root element to get highest element at root again and ab heapify hmm n ki jgah n-1 element pe lgayenge
+      }
   }
   
   // Print an array
