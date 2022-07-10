@@ -1,0 +1,21 @@
+YOU CAN TAKE 1 AND 2 STEPS AT A TIME
+class Solution {
+public:
+    int solve(vector<int> &a , int n , int i,vector<int> &dp){
+        
+        if(i>=n)
+            return 0;
+        if(dp[i]!=-1)
+            return dp[i];
+        return dp[i]= a[i]+min(solve(a,n,i+1,dp),solve(a,n,i+2,dp));
+    
+        
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        vector<int>dp(n,-1);
+      return  min(solve(cost,n , 1,dp),solve(cost,n,0,dp));
+        
+        
+    }
+};
