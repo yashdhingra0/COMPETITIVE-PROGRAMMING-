@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <bits/stdc++.h> 
+using namespace std;
+
+int main() {
+    int v, e;
+    
+    cout << "Enter no of vertices: ";
+    cin >> v;
+    cout << "Enter no of edges: ";
+    cin >> e;
+    
+    // Create an adjacency list
+    // This is a vector of vectors. adj[i] will store all neighbors of node i.
+    vector<vector<int>> adj(v);
+    
+    cout << "Enter connected edges (start_node end_node):" << endl;
+    
+    for (int i = 0; i < e; i++) {
+        int u, w;
+        cin >> u >> w;
+        
+        // Check bounds for safety
+        if(u >= 0 && u < v && w >= 0 && w < v) {
+            // Add w to u's list
+            adj[u].push_back(w);
+            
+            // Add u to w's list (Only for UNDIRECTED Graph)
+            adj[w].push_back(u); 
+        } else {
+            cout << "Invalid nodes! Try again." << endl;
+            i--;
+        }
+    }
+
+    // Displaying the Adjacency List
+    cout << "\nAdjacency List Representation:" << endl;
+    for (int i = 0; i < v; i++) {
+        cout << i << " -> ";
+        for (int neighbor : adj[i]) {
+            cout << neighbor << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
