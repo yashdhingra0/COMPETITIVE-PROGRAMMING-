@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+#include <bits/stdc++.h> // Corrected the syntax here
+using namespace std;
+
+int main() {
+    int v, e;
+    
+    cout << "enter no of vertices: ";
+    cin >> v;
+    cout << "enter no of edges: ";
+    cin >> e;
+    
+    // Initialize a v x v matrix with 0s
+    vector<vector<int>> mat(v, vector<int>(v, 0));
+    
+    cout << "Enter connected edges (start_node end_node):" << endl;
+    
+    // Loop to read all edges
+    for (int i = 0; i < e; i++) {
+        int u, w; // Temporary variables for the two nodes of an edge
+        cin >> u >> w;
+        
+        // Check if the input nodes are within valid range (0 to v-1)
+        if(u >= 0 && u < v && w >= 0 && w < v) {
+            mat[u][w] = 1; 
+            mat[w][u] = 1; // Keep this for UNDIRECTED graph. Remove for DIRECTED.
+        } else {
+            cout << "Invalid nodes! Please enter nodes between 0 and " << v-1 << endl;
+            i--; // Decrement i to retry this entry
+        }
+    }
+
+    // Displaying the Adjacency Matrix
+    cout << "\nAdjacency Matrix Representation:" << endl;
+    for (int i = 0; i < v; i++) {
+        for (int j = 0; j < v; j++) {
+            cout << mat[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
