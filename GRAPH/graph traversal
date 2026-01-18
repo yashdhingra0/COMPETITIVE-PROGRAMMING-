@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// DFS Recursive Function
+// ye function baar baar apne aap ko call karega
+void dfs(int node, vector<vector<int>> &adj, vector<int> &visited) {
+    
+    // 1. Current node ko visited mark karo aur print karo
+    visited[node] = 1;
+    cout << node << " "; 
+    
+    // 2. Ab iske neighbors ko check karo
+    for(int neighbor : adj[node]) {
+        // Agar neighbor pehle se visited nahi hai
+        if(!visited[neighbor]) {
+            // "Trust" karo aur recursive call karo (Go Deeper)
+            dfs(neighbor, adj, visited); 
+        }
+    }
+    // Jab loop khatam, function return karega (Backtrack)
+}
+
+int main() {
+    int v = 5; 
+    vector<vector<int>> adj(v);
+    
+    // Graph connection (Undirected)
+    // 0 -- 1 -- 3
+    // |    |
+    // 2    4
+    
+    adj[0] = {1, 2};
+    adj[1] = {0, 3, 4};
+    adj[2] = {0};
+    adj[3] = {1};
+    adj[4] = {1};
+
+    vector<int> visited(v, 0); // Visited array (Sab 0)
+    
+    cout << "DFS Traversal: ";
+    // Start DFS from Node 0
+    dfs(0, adj, visited);
+
+    return 0;
+}
