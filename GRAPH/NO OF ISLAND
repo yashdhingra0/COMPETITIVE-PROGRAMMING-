@@ -1,3 +1,77 @@
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+private:
+    // Helper Function: Island ko dhoond kar '0' kar deta hai
+    void eraseIsland(vector<vector<char>>& grid, int i, int j) {
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        // Base Case:
+        // 1. Grid ke bahar?
+        // 2. Pani ('0') hai? (Matlab ruk jao)
+        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == '0') {
+            return;
+        }
+        
+        // Step: Is zameen ko paani bana do (Visited mark kar diya)
+        grid[i][j] = '0';
+        
+        // Charo taraf failao (Up, Down, Left, Right)
+        eraseIsland(grid, i-1, j); // Up
+        eraseIsland(grid, i+1, j); // Down
+        eraseIsland(grid, i, j-1); // Left
+        eraseIsland(grid, i, j+1); // Right
+    }
+
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        int islands = 0;
+        
+        // Poori grid ko scan karo
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                
+                // Agar zameen dikhi ('1')
+                if (grid[i][j] == '1') {
+                    islands++; // Ek naya island mila!
+                    
+                    // Ab is poore island ko gayab kar do taaki dubara na gine
+                    eraseIsland(grid, i, j);
+                }
+            }
+        }
+        
+        return islands;
+    }
+};
+
+int main() {
+    // Example Grid
+    vector<vector<char>> grid = {
+        {'1', '1', '0', '0', '0'},
+        {'1', '1', '0', '0', '0'},
+        {'0', '0', '1', '0', '0'},
+        {'0', '0', '0', '1', '1'}
+    };
+    
+    Solution sol;
+    cout << "Total Islands: " << sol.numIslands(grid); // Output: 3
+    
+    return 0;
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
 // C++ Program to count islands in boolean 2D matrix 
 #include <bits/stdc++.h> 
 using namespace std; 
