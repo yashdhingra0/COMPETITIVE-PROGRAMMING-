@@ -1,0 +1,64 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // max function ke liye
+using namespace std;
+
+class Solution {
+private:
+    // Change 1: Function ab INT return karega
+    int calculateArea(vector<vector<int>>& grid, int i, int j) {
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        // Base Case: Agar grid ke bahar ya Paani ('0') hai -> Area 0 hai
+        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == 0) {
+            return 0;
+        }
+        
+        // Step: Visited mark karo (0 bana do)
+        grid[i][j] = 0;
+        
+        // Change 2: Magic Formula
+        // 1 (Khud) + Charo dishaon ka area
+        return 1 + calculateArea(grid, i-1, j) 
+                 + calculateArea(grid, i+1, j) 
+                 + calculateArea(grid, i, j-1) 
+                 + calculateArea(grid, i, j+1);
+    }
+
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        int maxArea = 0; // Sabse bada area track karne ke liye
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                // Agar Zameen mili
+                if (grid[i][j] == 1) {
+                    // Current island ka area nikalo
+                    int currentArea = calculateArea(grid, i, j);
+                    
+                    // Compare karo: Kya ye purane max se bada hai?
+                    maxArea = max(maxArea, currentArea);
+                }
+            }
+        }
+        
+        return maxArea;
+    }
+};
+
+int main() {
+    vector<vector<int>> grid = {
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0}
+    };
+    
+    Solution sol;
+    cout << "Max Area: " << sol.maxAreaOfIsland(grid); // Output: 4
+    return 0;
+}
