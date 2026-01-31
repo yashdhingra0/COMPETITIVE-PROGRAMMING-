@@ -1,3 +1,78 @@
+it is used to find the shortest path from single source node to all other nodes in a graph ( mtlb ek node se jaane ke do raste bhi ho sktehn ye soure noode e uska shotest distnce btayegaa )
+Min priority quue use hogi  structure deh lena 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Making a short name for pair<int, int> to keep code clean
+// pii = Pair of Integers
+using pii = pair<int, int>;
+
+int main() {
+    int v, e;
+    cout << "Enter number of vertices and edges: ";
+    cin >> v >> e;
+
+    // 1. Create Adjacency List
+    // adj[u] contains list of {node, weight}
+    vector<vector<pii>> adj(v);
+
+    cout << "Enter edges (u v w):" << endl;
+    for (int i = 0; i < e; i++) {
+        int u, v_node, w;
+        cin >> u >> v_node >> w;
+        adj[u].push_back({v_node, w});
+        adj[v_node].push_back({u, w}); // Remove this line if graph is Directed
+    }
+
+    int source;
+    cout << "Enter Source Node: ";
+    cin >> source;
+
+    // 2. Initialization
+    priority_queue<pii, vector<pii>, greater<pii>> pq; // Min-Heap
+    vector<int> dist(v, INT_MAX); // All distances infinite initially
+
+    dist[source] = 0;      // Distance to self is 0
+    pq.push({0, source});  // Push {distance, node}
+
+    // 3. The Algorithm (Loop)
+    while (!pq.empty()) {
+        int d = pq.top().first;    // Current distance
+        int node = pq.top().second;// Current node
+        pq.pop();
+
+        // If we found a shorter path to this node already, skip
+        if (d > dist[node]) continue;
+
+        // Check all neighbors
+        for (auto it : adj[node]) {
+            int neighbor = it.first;
+            int weight = it.second;
+
+            // Relaxation: Is the new path shorter?
+            if (dist[node] + weight < dist[neighbor]) {
+                dist[neighbor] = dist[node] + weight;
+                pq.push({dist[neighbor], neighbor});
+            }
+        }
+    }
+
+    // 4. Output
+    cout << "\nShortest distances from Node " << source << ":" << endl;
+    for (int i = 0; i < v; i++) {
+        cout << "Node " << i << " -> " << dist[i] << endl;
+    }
+
+    return 0;
+}
+
+
+
+
+
+
 #include<bits/stdc++.h>
 using namespace std;
 
