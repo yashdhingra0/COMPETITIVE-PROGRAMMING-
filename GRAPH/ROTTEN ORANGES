@@ -1,3 +1,97 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        // Queue mein store karenge: {{row, col}, time}
+        queue<pair<pair<int, int>, int>> q;
+        int freshCount = 0;
+        
+        // Step 1: Initial Scan
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(grid[i][j] == 2) {
+                    q.push({{i, j}, 0}); // Rotten ko queue mein daalo, time 0
+                }
+                if(grid[i][j] == 1) {
+                    freshCount++; // Fresh count kar lo
+                }
+            }
+        }
+        
+        int time = 0;
+        int convertedCount = 0; // Kitne fresh ko humne sadaya
+        
+        // 4 Directions (Up, Right, Down, Left) - Code saaf rakhne ke liye trick
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        // Step 2: BFS Loop
+        while(!q.empty()) {
+            int r = q.front().first.first;
+            int c = q.front().first.second;
+            int t = q.front().second;
+            time = max(time, t); // Max time track karo
+            q.pop();
+            
+            // Charo dishaon mein failao
+            for(int i = 0; i < 4; i++) {
+                int nrow = r + dRow[i];
+                int ncol = c + dCol[i];
+                
+                // Valid Check: Grid ke andar ho aur Fresh (1) ho
+                if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && grid[nrow][ncol] == 1) {
+                    // Isko sada do
+                    grid[nrow][ncol] = 2; 
+                    q.push({{nrow, ncol}, t + 1}); // Time + 1 karke queue mein daalo
+                    convertedCount++;
+                }
+            }
+        }
+        
+        // Step 3: Final Check
+        if(convertedCount != freshCount) return -1; // Kuch fresh bach gaye jo pahunch se bahar the
+        
+        return time;
+    }
+};
+
+int main() {
+    vector<vector<int>> grid = {
+        {2, 1, 1},
+        {1, 1, 0},
+        {0, 1, 1}
+    };
+    
+    Solution sol;
+    cout << "Minimum Time: " << sol.orangesRotting(grid); // Output: 4
+    return 0;
+}
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 // C++ program to find minimum time required to make all 
 // oranges rotten 
 #include<bits/stdc++.h> 
