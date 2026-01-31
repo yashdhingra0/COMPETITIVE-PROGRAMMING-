@@ -1,0 +1,78 @@
+Logic (DFS Approach)
+Ye bilkul Virus ki tarah hai.
+
+Check: Jis pixel par hum hain, kya uska color Old Color jaisa hai?
+
+Change: Agar haan, toh uska color badal kar New Color kar do.
+
+Spread: Ab apne 4 padosiyon (Up, Down, Left, Right) ko call lagao aur same kaam karne ko bolo.
+
+Base Case (Rukna kab hai?):
+
+Agar hum grid se bahar chale gaye.
+
+Agar pixel ka color Old Color nahi hai (yani koi aur color ya Deewar hai).
+
+Agar pixel ka color pehle se hi New Color hai (matlab hum yahan pehle aa chuke hain).
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Main DFS Helper Function
+void dfs(int row, int col, vector<vector<int>>& image, int newColor, int oldColor) {
+    int n = image.size();
+    int m = image[0].size();
+    
+    // --- BASE CASES (Rukne ki conditions) ---
+    // 1. Grid ke bahar chale gaye?
+    if(row < 0 || row >= n || col < 0 || col >= m) return;
+    
+    // 2. Kya ye pixel 'Old Color' ka nahi hai? (Yaani ye alag color hai ya already colored hai)
+    if(image[row][col] != oldColor) return;
+    
+    // 3. Agar color same hai, lekin wo already newColor hai (Cycle prevention)
+    if(image[row][col] == newColor) return;
+    
+    // --- KAAM ---
+    // Color change karo
+    image[row][col] = newColor;
+    
+    // --- RECURSION (Failao) ---
+    // Up, Down, Left, Right
+    dfs(row - 1, col, image, newColor, oldColor); // Up
+    dfs(row + 1, col, image, newColor, oldColor); // Down
+    dfs(row, col - 1, image, newColor, oldColor); // Left
+    dfs(row, col + 1, image, newColor, oldColor); // Right
+}
+
+vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+    int oldColor = image[sr][sc]; // Shuru karne se pehle purana color note kar lo
+    
+    // Edge Case: Agar naya color aur purana color same hai, toh kuch nahi karna
+    if (oldColor == newColor) return image;
+    
+    // DFS shuru karo
+    dfs(sr, sc, image, newColor, oldColor);
+    
+    return image;
+}
+
+// Driver Code (Sirf test karne ke liye)
+int main() {
+    vector<vector<int>> image = {
+        {1, 1, 1},
+        {1, 1, 0},
+        {1, 0, 1}
+    };
+    
+    vector<vector<int>> result = floodFill(image, 1, 1, 2);
+    
+    cout << "Updated Image:" << endl;
+    for(auto row : result) {
+        for(int pixel : row) cout << pixel << " ";
+        cout << endl;
+    }
+    return 0;
+}
