@@ -1,0 +1,109 @@
+// Detect Cycle In Undirected Graph
+
+2 comdition lgengi dfs lgao hrr node pe and dfs lgate vqt check kroo ki vo wali node visit 
+na hui ho and agr visit hui hh to parent na ho cuurent node ki agr s=esa hh 
+to cycle hh nhi to bhul jao
+
+
+Algorithm: 
+
+    Create the graph using the given number of edges and vertices.
+    Create a recursive function that that current index or vertex, visited and recursion stack.
+    Mark the current node as visited and also mark the index in recursion stack.
+    Find all the vertices which are not visited and are adjacent to the current node. Recursively
+    call the function for those vertices, If the recursive function returns true return true.
+    If the adjacent vertices are already marked in the recursion stack then return true.
+    Create a wrapper class, that calls the recursive function for all the vertices and if any function returns true, return true.
+    Else if for all vertices the function returns false return false.
+
+//using list 
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function returns TRUE if cycle exists, FALSE otherwise
+bool checkForCycle(int node, int parent, vector<int> &visited, vector<vector<int>> &adj) {
+    
+    visited[node] = 1; // Mark current node as visited
+    
+    // Visit all neighbors
+    for(int neighbor : adj[node]) {
+        
+        // Case 1: Agar neighbor visited NAHI hai, to aage badho
+        if(!visited[neighbor]) {
+            // Aage check karo, agar wahan cycle mili to return true
+            if(checkForCycle(neighbor, node, visited, adj)) 
+                return true;
+        }
+        // Case 2: Agar neighbor VISITED hai, lekin Parent NAHI hai
+        // Matlab hum ghoom ke wapas aa gaye -> CYCLE HAI!
+        else if(neighbor != parent) {
+            return true;
+        }
+    }
+    
+    return false; // Sab check kar liya, cycle nahi mili
+}
+
+int main() {
+    int v = 3;
+    vector<vector<int>> adj(v);
+    
+    // Graph with a Cycle: 0--1--2--0
+    adj[0] = {1, 2};
+    adj[1] = {0, 2};
+    adj[2] = {1, 0};
+    
+    vector<int> visited(v, 0);
+    
+    // Check cycle assuming graph is connected and starts from 0
+    // (Real code mein loop lagate hain disconnected components ke liye)
+    if(checkForCycle(0, -1, visited, adj)) {
+        cout << "Cycle Detected! (Graph mein loop hai)" << endl;
+    } else {
+        cout << "No Cycle Found." << endl;
+    }
+
+    return 0;
+}
+
+
+//using matrix 
+bool iscycleDFS(vector<vector<int> > &Graph,vector<bool> &visited,int index,int parent)
+{
+    visited[index] = true;
+    for(int i=0;i<Graph[index].size();i++)
+    {
+        int t = Graph[index][i];
+        if(!visited[t])
+        {
+            if(iscycleDFS(Graph,visited,t,index))
+              return true;
+        }
+        else if(parent != t)
+           return true;
+    }
+    visited[index] = false;
+    return false;
+}
+
+
+int Solution::solve(int V, vector<vector<int> > &B) {
+    int E = B.size();
+    vector<vector<int> > Graph(V+1);
+    vector<bool> visited(V+1,false);
+    for(int i=0;i<E;i++)
+    {
+        Graph[B[i][0]].push_back(B[i][1]);
+        Graph[B[i][1]].push_back(B[i][0]);    
+    }
+   
+    
+    for(int i=1;i<=E;i++)
+    {
+       if(iscycleDFS(Graph,visited,i,-1))
+         return true;
+    }
+    return false;
+}

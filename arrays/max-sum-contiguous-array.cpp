@@ -1,0 +1,63 @@
+// Max Sum Contiguous Array
+
+
+
+kadane algo to find max contigous sum which says that wha is the max sum at index i that is equal to a[i] or a[i]+curr_max;
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+int maxSubArraySum(int a[], int size) 
+{ 
+   int max_global = a[0]; 
+   int curr_max = a[0]; 
+  
+   for (int i = 1; i < size; i++) 
+   { 
+        curr_max = max(a[i], curr_max+a[i]); 
+        max_global = max(max_global, curr_max); 
+   } 
+   return max_global; 
+} 
+
+int main()
+{
+	int a[] =  {-2, -3, 4, -1, -2, 1, 5, -3}; 
+   int n = sizeof(a)/sizeof(a[0]); 
+   int max_sum = maxSubArraySum(a, n); 
+   cout << "Maximum contiguous sum is " << max_sum; 
+	return 0;
+}
+output 7
+
+
+int Solution::maxSubArray(const vector<int> &nums) {
+
+ int sum = 0; int maxVal = INT_MIN;
+    for(int x = 0; x<nums.size(); x++){
+        sum+=nums[x];
+        if(sum<nums[x]){
+            sum = nums[x];
+        }
+        maxVal = max(maxVal,sum);
+    }
+    return maxVal;
+
+}
+
+Input 1:
+    A = [1, 2, 3, 4, -10]
+
+Output 1:
+    10
+
+Explanation 1:
+    The subarray [1, 2, 3, 4] has the maximum possible sum of 10.
+
+Input 2:
+    A = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+
+Output 2:
+    6
+
+Explanation 2:
+    The subarray [4,-1,2,1] has the maximum possible sum of 6.

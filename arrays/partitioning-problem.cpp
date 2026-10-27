@@ -1,0 +1,112 @@
+// Partitioning Problem
+
+Partition problem is to determine whether a given set can be partitioned into two subsets such that the sum of elements in both subsets is the same. 
+Calculate sum of the array. If sum is odd, there can not be two subsets with equal sum, so return false. 
+2) If sum of array elements is even, calculate sum/2 and find a subset of array with sum equal to sum/2. 
+The first step is simple. The second step is crucial, it can be solved either using recursion or Dynamic Programming.
+Time Complexity: O(2^n) In the worst case, this solution tries two possibilities (whether to include or exclude) for every element.
+#include <bits/stdc++.h> 
+using namespace std; 
+
+Let isSubsetSum(arr, n, sum/2) be the function that returns true if 
+there is a subset of arr[0..n-1] with sum equal to sum/2
+
+The isSubsetSum problem can be divided into two subproblems
+ a) isSubsetSum() without considering last element 
+    (reducing n to n-1)
+ b) isSubsetSum considering the last element 
+    (reducing sum/2 by arr[n-1] and n to n-1)
+If any of the above the above subproblems return true, then return true. 
+isSubsetSum (arr, n, sum/2) = isSubsetSum (arr, n-1, sum/2) ||
+                              isSubsetSum (arr, n-1, sum/2 - arr[n-1])
+                              
+                              
+                                                                   ////////////////////////////////////example/////////////////////////////////////////
+                                             input 3, 1, 5, 9, 12
+                                               output yes
+//////////////////////////////////////////////////////////////////                            
+
+
+const int MAX_CHAR = 26; 
+bool issubsetsum(int a[],int n,int sum){
+    if(sum==0){
+        return true;
+    }
+    if(n==0 & sum!=0){
+        return false;
+    }
+    if (a[n-1] > sum)  
+       return issubsetsum (arr, n-1, sum);  
+  
+     return issubsetsum (a, n-1, sum) ||  
+        issubsetsum (a, n-1, sum-arr[n-1]);  
+}  
+
+
+bool partition(int a[],int n){
+    int sum=0;
+    map<int,int>m;
+    for(int i=0;i<n;i++){
+        sum+=a[i];
+    }
+    int x=sum/2;
+    if(sum%2!=0){
+        return 0;
+    }
+    else{
+      return  issubsetsum(a,n,x);
+        
+            
+        }
+        
+    }
+}
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||DP APPROACH ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+bool findPartiion(int arr[], int n)
+{
+    int sum = 0;
+    int i, j;
+ 
+    // Calculate sum of all elements
+    for (i = 0; i < n; i++)
+        sum += arr[i];
+ 
+    if (sum % 2 != 0)
+        return false;
+ 
+    bool part[sum / 2 + 1][n + 1];
+ 
+    // initialize top row as true
+    for (i = 0; i <= n; i++)
+        part[0][i] = true;
+ 
+    // initialize leftmost column,
+    // except part[0][0], as 0
+    for (i = 1; i <= sum / 2; i++)
+        part[i][0] = false;
+ 
+    // Fill the partition table in bottom up manner
+    for (i = 1; i <= sum / 2; i++) {
+        for (j = 1; j <= n; j++) {
+            part[i][j] = part[i][j - 1];
+            if (i >= arr[j - 1])
+                part[i][j] = part[i][j]
+                             || part[i - arr[j - 1]][j - 1];
+        }
+    }
+ 
+    /* // uncomment this part to print table
+    for (i = 0; i <= sum/2; i++)
+    {
+    for (j = 0; j <= n; j++)
+        cout<<part[i][j];
+    cout<<endl;
+    } */
+ 
+    return part[sum / 2][n];
+}
+Time Complexity: O(sum*n) 
+Auxiliary Space: O(sum*n) 

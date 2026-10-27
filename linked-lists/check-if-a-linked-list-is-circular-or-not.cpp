@@ -1,0 +1,11 @@
+// Check If A Linked List Is Circular Or Not
+
+bool isCircular(struct Node *head)   //function to check if LL is circular
+{
+if (head == NULL)      //if the linked list is empty, it shows that it is circular
+return true;
+struct Node *node = head->next;
+while (node != NULL && node != head)
+node = node->next;
+return (node == head);
+}

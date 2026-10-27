@@ -1,0 +1,51 @@
+// Zigzag Array
+
+// C++ program to sort an array in Zig-Zag form 
+given an array of DISTINCT elements, rearrange the elements of array 
+A Simple Solution is to first sort the array. After sorting, exclude the first element, 
+swap the remaining elements in pairs. (i.e. keep arr[0] as it is, swap arr[1] and arr[2], swap arr[3] and arr[4], and so on). 
+
+Time complexity: O(N log N) since we need to sort the array first.
+in zig-zag fashion in O(n) time. The converted array should be in form a < b > c < d > e < f. 
+#include <iostream> 
+using namespace std; 
+
+// Program for zig-zag conversion of array 
+void zigZag(int arr[], int n) 
+{ 
+	// Flag true indicates relation "<" is expected, 
+	// else ">" is expected. The first expected relation 
+	// is "<" 
+	bool flag = true; 
+
+	for (int i=0; i<=n-2; i++) 
+	{ 
+		if (flag) /* "<" relation expected */
+		{ 
+			/* If we have a situation like A > B > C, 
+			we get A > B < C by swapping B and C */
+			if (arr[i] > arr[i+1]) 
+				swap(arr[i], arr[i+1]); 
+		} 
+		else /* ">" relation expected */
+		{ 
+			/* If we have a situation like A < B < C, 
+			we get A < C > B by swapping B and C */
+			if (arr[i] < arr[i+1]) 
+				swap(arr[i], arr[i+1]); 
+		} 
+		flag = !flag; /* flip flag */
+	} 
+} 
+
+// Driver program 
+int main() 
+{ 
+	int arr[] = {4, 3, 7, 8, 6, 2, 1}; 
+	int n = sizeof(arr)/sizeof(arr[0]); 
+	zigZag(arr, n); 
+	for (int i=0; i<n; i++) 
+		cout << arr[i] << " "; 
+	return 0; 
+} 
+OUTPUT 3  7  4  8  2  6  1 
