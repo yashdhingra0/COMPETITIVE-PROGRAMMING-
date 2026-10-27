@@ -1,0 +1,117 @@
+// Burn Tree
+
+Input : 
+                       12
+                     /     \
+                   13       10
+                          /     \
+                       14       15
+                      /   \     /  \
+                     21   24   22   23
+target node = 14
+
+Output :
+14
+21, 24, 10
+15, 12
+22, 23, 13
+
+int burnTreeUtil(Node* root, int target, queue<Node*>& q) 
+{  if(root == NULL) 
+    { return 0; } 
+   if(root->key == target) 
+    { 
+        cout<<root->key<<endl; 
+        if(root->left != NULL) 
+        {q.push(root->left); } 
+        if(root->right != NULL) 
+        {q.push(root->right);} 
+return 1; // this will prevent further function call
+    } 
+      
+    int a = burnTreeUtil(root->left, target, q); 
+    if(a == 1) 
+  {int qsize = q.size(); 
+    while(qsize--) 
+        {Node* temp = q.front(); 
+        cout<<temp->key<<" , "; 
+            q.pop(); 
+       if(temp->left != NULL) 
+                q.push(temp->left); 
+      if(temp->right != NULL) 
+                    q.push(temp->right); 
+        } 
+              
+        if(root->right != NULL) 
+            q.push(root->right); 
+  
+        cout<<root->key<<endl; 
+         return 1; 
+    } 
+      
+    int b = burnTreeUtil(root->right, target, q); 
+    if(b == 1) 
+    { 
+        int qsize = q.size(); 
+ while(qsize--) 
+        { 
+            Node* temp = q.front(); 
+          cout<<temp->key<<" , "; 
+            q.pop(); 
+           if(temp->left != NULL) 
+                q.push(temp->left); 
+                  
+            //Check if condition for left subtree 
+            if(temp->right != NULL) 
+                q.push(temp->right); 
+        } 
+          
+        if(root->left != NULL) 
+            q.push(root->left); 
+      
+        cout<<root->key<<endl; 
+          
+        // Return statement it prevents further 
+        // further function call 
+        return 1; 
+  
+    } 
+} 
+void burnTree(Node* root, int target)  
+{  
+    queue<Node*> q;  
+      
+    //Function call  
+    burnTreeUtil(root, target, q);  
+      
+    //While loop runs unless queue becomes empty  
+    while(!q.empty())  
+    {  
+    int qSize = q.size(); 
+    while(qSize > 0) 
+    { 
+        Node* temp = q.front();  
+          
+        //Printing of burning nodes  
+        cout<<temp->key;  
+        //Insert left child in a queue, if exist 
+        if(temp->left != NULL) 
+        { 
+        q.push(temp->left);  
+        } 
+        //Insert right child in a queue, if exist 
+        if(temp->right != NULL) 
+        { 
+        q.push(temp->right); 
+        } 
+          
+    if(q.size()!=1)  
+    cout << " , ";  
+  
+    q.pop();  
+        qSize--; 
+    } 
+    cout<<endl; 
+          
+    }  
+}  

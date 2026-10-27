@@ -1,0 +1,235 @@
+// Cycle In Directed Graph
+
+
+Directed Graph mein Cycle dhoondna thoda tricky hai, kyunki yahan Parent logic kaam nahi karta.
+
+Kyun? Parent Logic fail kyu hota hai?
+Ek simple example socho: 0 -> 1 -> 2 aur 0 -> 2. (Triangle jaisa dikh raha hai).
+
+0 se 1 gaye.
+
+1 se 2 gaye.
+
+Wapas 0 par aaye, aur dekha ki 2 par jaane ka rasta hai.
+
+2 already visited hai (1 ke through).
+
+Agar purana logic lagate, to hum kehte: "2 visited hai aur parent nahi hai, matlab cycle hai." Lekin ye cycle nahi hai! Ye to bas do alag raste hain 2 tak pahunchne ke liye. Arrows ek hi disha mein flow ho rahe hain.
+
+Isliye Directed Graph mein hum ek naya array use karte hain: pathVisited (Current Rasta).
+
+Concept: "Visited" vs "PathVisited"
+Hum do arrays rakhenge:
+
+Visited: Kya main is node par kabhi bhi aaya hoon? (History).
+
+PathVisited (Recursion Stack): Kya ye node abhi wale raste (current active path) mein maujood hai?
+
+Cycle tabhi maani jayegi jab: Node pehle se Visited ho AUR wo Current Path (pathVisited) mein bhi active ho.
+
+Iska matlab: "Main chalte-chalte wapas usi insaan se takra gaya jo abhi mere hi group mein mere peeche khada tha."
+
+Code: Directed Cycle Detection
+Is code mein sabse zaroori line hai: pathVisited[node] = 0 (Backtracking step). Jab hum wapas aate hain, to current path se node ko hata dete hain.
+
+//code 
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to detect cycle in Directed Graph
+bool checkDirectedCycle(int node, vector<vector<int>> &adj, vector<int> &visited, vector<int> &pathVisited) {
+    
+    // 1. Current node ko dono jagah mark karo
+    visited[node] = 1;      // Haan main yahan aaya hun
+    pathVisited[node] = 1;  // Haan ye abhi mere current raste mein hai
+    
+    // 2. Neighbors check karo
+    for(int neighbor : adj[node]) {
+        
+        // Agar neighbor visited nahi hai, to andar jao
+        if(!visited[neighbor]) {
+            if(checkDirectedCycle(neighbor, adj, visited, pathVisited))
+                return true;
+        }
+        // Agar neighbor visited hai AUR current raste mein bhi hai -> CYCLE!
+        else if(pathVisited[neighbor]) {
+            return true;
+        }
+    }
+    
+    // 3. Backtracking (Sabse Important Step)
+    // Jab wapas ja rahe ho, to is node ko current path se hata do
+    pathVisited[node] = 0;
+    
+    return false;
+}
+
+int main() {
+    int v = 4;
+    vector<vector<int>> adj(v);
+    
+    // Cycle Example: 0 -> 1 -> 2 -> 3 -> 1 (Cycle 1-2-3-1)
+    adj[0] = {1};
+    adj[1] = {2};
+    adj[2] = {3};
+    adj[3] = {1}; // Back to 1
+    
+    vector<int> visited(v, 0);
+    vector<int> pathVisited(v, 0);
+    
+    bool cycleFound = false;
+    for(int i=0; i<v; i++) {
+        if(!visited[i]) {
+            if(checkDirectedCycle(i, adj, visited, pathVisited)) {
+                cycleFound = true;
+                break;
+            }
+        }
+    }
+
+    if(cycleFound) cout << "Cycle Detected in Directed Graph!";
+    else cout << "No Cycle Found.";
+
+    return 0;
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+/*  Function to check if the given graph contains cycle
+*   V: number of vertices
+*   adj[]: representation of graph
+*/
+bool isCyclic_util(vector<int> adj[], vector<bool> visited, int curr)
+{
+    if(visited[curr]==true)
+        return true;
+    
+    visited[curr] = true;
+    bool FLAG = false;
+    for(int i=0;i<adj[curr].size();++i)
+    {
+        FLAG = isCyclic_util(adj, visited, adj[curr][i]);
+        if(FLAG==true)
+            return true;
+    }
+    return false;
+}
+
+bool isCyclic(int V, vector<int> adj[])
+{
+   vector<bool> visited(V,false);
+   bool FLAG = false;
+   for(int i=0;i<V;++i)
+   {
+           visited[i] = true;
+           for(int j=0;j<adj[i].size();++j)
+           {
+               FLAG = isCyclic_util(adj,visited,adj[i][j]);
+               if(FLAG==true)
+                   return true;
+           }
+           visited[i] = false;
+   }
+   return false;
+}
+
+
+
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+/*  Function to check if the given graph contains cycle
+*   V: number of vertices
+*   adj[]: representation of graph
+*/
+bool isCyclic_util(vector<int> adj[], vector<bool> visited, int curr)
+{
+    if(visited[curr]==true)
+        return true;
+    
+    visited[curr] = true;
+    bool FLAG = false;
+    for(int i=0;i<adj[curr].size();++i)
+    {
+        FLAG = isCyclic_util(adj, visited, adj[curr][i]);
+        if(FLAG==true)
+            return true;
+    }
+    return false;
+}
+
+bool isCyclic(int V, vector<int> adj[])
+{
+   vector<bool> visited(V,false);
+   bool FLAG = false;
+   for(int i=0;i<V;++i)
+   {
+           visited[i] = true;
+           for(int j=0;j<adj[i].size();++j)
+           {
+               FLAG = isCyclic_util(adj,visited,adj[i][j]);
+               if(FLAG==true)
+                   return true;
+           }
+           visited[i] = false;
+   }
+   return false;
+}
+
+
+
+int main() {
+	
+	int t;
+	cin >> t;
+	
+	while(t--){
+	    
+	    int v, e;
+	    cin >> v >> e;
+	    
+	    vector<int> adj[v];
+	    
+	    for(int i =0;i<e;i++){
+	        int u, v;
+	        cin >> u >> v;
+	        adj[u].push_back(v);
+	    }
+	    if(isCyclic(v, adj))
+	    cout << "true" << endl;
+        else
+            cout<<"false"<<endl;
+	    
+	}
+	
+	return 0;
+}  //
+ 
+
+example
+1
+4 6
+0 1
+0 2
+1 2
+2 0
+2 3
+3 3
+
+sapphire engne link: 
+

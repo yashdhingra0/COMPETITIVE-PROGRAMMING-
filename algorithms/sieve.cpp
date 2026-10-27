@@ -1,0 +1,29 @@
+// Sieve
+
+seedhi bhasha m table bnao n+1 true krke and loop chlao from i=2;i<sqrt(n) tk and then check kroo agr table m element true hh then uske sqr se jyada or uske equalke sbhi multiple 
+ko false mark krdo and last m jo bcche vo prime like  2 ka sqr 4 
+
+1.simple logic to find prime no is for loop till n of(n%i==0) return false; else  return true; time complexity o(n);
+2.optimise uuper approach run loop till root n so the time complexity will be reduced to root n
+3. sieve algo here we will take an array from 2 to n and marked all the numbers as true;
+so from 2  to n marked multiples of 2 as false then move to the next unmarked number and make false all the multiples 
+of that and move till n and then return the list which are unmarked and that list will contain primes numbers and time complexity 
+is o(nloglogn)
+
+
+
+
+
+NOTE*  Applicable for n<10^7 10millon
+void sieve() 
+{
+int a[n+1]; // intialise an array of elements till n 
+memset(prime, true, sizeof(prime)); //mark all of them as true
+for(int i=2;i*i<=n;i++){ run loop till root n
+if(a[i]==true){// that is unmarked 
+for(int j=i*i;j<=n;j=j+i){ mark all the multiples if i  greater than or equal to i*i as false;
+a[j]=false}}}
+for(int i=2;i<=n;i++){
+if(a[i]==true) / if eleemnts in arrays is still true return them and they are prime numbers
+cout<<i<<" ";}
+}

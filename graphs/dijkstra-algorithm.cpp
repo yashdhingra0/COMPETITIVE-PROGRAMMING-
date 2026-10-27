@@ -1,0 +1,150 @@
+// Dijkstra Algorithm
+
+it is used to find the shortest path from single source node to all other nodes in a graph ( mtlb ek node se jaane ke do raste bhi ho sktehn ye soure noode e uska shotest distnce btayegaa )
+Min priority quue use hogi  structure deh lena 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Making a short name for pair<int, int> to keep code clean
+// pii = Pair of Integers
+using pii = pair<int, int>;
+
+int main() {
+    int v, e;
+    cout << "Enter number of vertices and edges: ";
+    cin >> v >> e;
+
+    // 1. Create Adjacency List
+    // adj[u] contains list of {node, weight}
+    vector<vector<pii>> adj(v);
+
+    cout << "Enter edges (u v w):" << endl;
+    for (int i = 0; i < e; i++) {
+        int u, v_node, w;
+        cin >> u >> v_node >> w;
+        adj[u].push_back({v_node, w});
+        adj[v_node].push_back({u, w}); // Remove this line if graph is Directed
+    }
+
+    int source;
+    cout << "Enter Source Node: ";
+    cin >> source;
+
+    // 2. Initialization
+    priority_queue<pii, vector<pii>, greater<pii>> pq; // Min-Heap
+    vector<int> dist(v, INT_MAX); // All distances infinite initially
+
+    dist[source] = 0;      // Distance to self is 0
+    pq.push({0, source});  // Push {distance, node}
+
+    // 3. The Algorithm (Loop)
+    while (!pq.empty()) {
+        int d = pq.top().first;    // Current distance
+        int node = pq.top().second;// Current node
+        pq.pop();
+
+        // If we found a shorter path to this node already, skip
+        if (d > dist[node]) continue;
+
+        // Check all neighbors
+        for (auto it : adj[node]) {
+            int neighbor = it.first;
+            int weight = it.second;
+
+            // Relaxation: Is the new path shorter?
+            if (dist[node] + weight < dist[neighbor]) {
+                dist[neighbor] = dist[node] + weight;
+                pq.push({dist[neighbor], neighbor});
+            }
+        }
+    }
+
+    // 4. Output
+    cout << "\nShortest distances from Node " << source << ":" << endl;
+    for (int i = 0; i < v; i++) {
+        cout << "Node " << i << " -> " << dist[i] << endl;
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define V 6		//No of vertices
+
+int selectMinVertex(vector<int>& value,vector<bool>& processed)
+{
+	int minimum = INT_MAX;
+	int vertex;
+	for(int i=0;i<V;++i)
+	{
+		if(processed[i]==false && value[i]<minimum)
+		{
+			vertex = i;
+			minimum = value[i];
+		}
+	}
+	return vertex;
+}
+
+void dijkstra(int graph[V][V])
+{
+	int parent[V];		//Stores Shortest Path Structure
+	vector<int> value(V,INT_MAX);	//Keeps shortest path values to each vertex from source
+	vector<bool> processed(V,false);	//TRUE->Vertex is processed
+
+	//Assuming start point as Node-0
+	parent[0] = -1;	//Start node has no parent
+	value[0] = 0;	//start node has value=0 to get picked 1st
+
+	//Include (V-1) edges to cover all V-vertices
+	for(int i=0;i<V-1;++i)
+	{
+		//Select best Vertex by applying greedy method
+		int U = selectMinVertex(value,processed);
+		processed[U] = true;	//Include new Vertex in shortest Path Graph
+
+		//Relax adjacent vertices (not yet included in shortest path graph)
+		for(int j=0;j<V;++j)
+		{
+			/* 3 conditions to relax:-
+			      1.Edge is present from U to j.
+			      2.Vertex j is not included in shortest path graph
+			      3.Edge weight is smaller than current edge weight
+			*/
+			if(graph[U][j]!=0 && processed[j]==false && value[U]!=INT_MAX
+			&& (value[U]+graph[U][j] < value[j]))
+			{
+				value[j] = value[U]+graph[U][j];
+				parent[j] = U;
+			}
+		}
+	}
+	//Print Shortest Path Graph
+	for(int i=1;i<V;++i)
+		cout<<"U->V: "<<parent[i]<<"->"<<i<<"  wt = "<<graph[parent[i]][i]<<"\n";
+}
+
+int main()
+{
+	int graph[V][V] = { {0, 1, 4, 0, 0, 0},
+						{1, 0, 4, 2, 7, 0},
+						{4, 4, 0, 3, 5, 0},
+						{0, 2, 3, 0, 4, 6},
+						{0, 7, 5, 4, 0, 7},
+						{0, 0, 0, 6, 7, 0} };
+
+	dijkstra(graph);	
+	return 0;
+}
+
+//TIME COMPLEXITY: O(V^2)
+//TIME COMPLEXITY: (using Min-Heap + Adjacency_List): O(ElogV)

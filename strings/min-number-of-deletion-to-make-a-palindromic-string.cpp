@@ -1,0 +1,5 @@
+// Min Number Of Deletion To Make A Palindromic String
+
+iski approach ye hh ki hmm length of longest palindromic subsequence nikal lete hn and usko hmm string ki length mm se minus krte hn to jo ans aayega vo min no of deletion hoge 
+that is mindeletion= s.lenght()-lcs(s,reverse(a));
+ab code krloge apne ap :)

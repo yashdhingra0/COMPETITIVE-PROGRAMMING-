@@ -1,0 +1,76 @@
+// Coin Change Number Of Ways
+
+Given a value N, if we want to make change for N cents, and we have 
+infinite supply of each of S = { S1, S2, .. , Sm} valued coins, how many ways can we make the change? The order of coins doesn’t matter.
+
+For example, for N = 4 and S = {1,2,3}, there are four solutions: 
+{1,1,1,1},{1,1,2},{2,2},{1,3}. So output should be 4. For N = 10 and S = {2, 5, 3, 6}, 
+there are five solutions: {2,2,2,2,2}, {2,2,3,3}, {2,2,6}, {2,3,5} and {5,5}. 
+So the output should be 5.
+
+RECURSIVE APPROACH  ---------------KNPASACK KI TRAH SOCHO
+
+int count( int S[], int m, int n ) ////////////////////////////////////M IS NO OF COINS-N IS THE SUM WE WANT-SO RETURN TOTAL NUMBER OF WAYS************************
+{ 
+    // If n is 0 then there is 1 solution  
+    // (do not include any coin) 
+    if (n == 0) //NULL SUSBSET YAHAN SUM 0 CHAHIYE HH TO POSSIBLE HH
+        return 1; 
+      
+    // If n is less than 0 then no  
+    // solution exists 
+    if (n < 0) AGR SUM LESS THAN 0 NOT POSSIBLE 
+        return 0; 
+  
+    // If there are no coins and n  
+    // is greater than 0, then no 
+    // solution exist 
+    if (m <=0 && n >= 1) AGR COINS NA HON TO SUM KHAN SE BNAYENGE 
+        return 0; 
+  
+    // count is sum of solutions (i)  
+    // including S[m-1] (ii) excluding S[m-1] 
+    return count( S, m - 1, n )///JB LAST KO INCLUDE NA KRENGE  + count( S, m, n-S[m-1] )////JB LAST KO INCLUDE KRENGE SUM ; 
+} 
+
+
+DP APPROACH 
+
+  #include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+int solve( int a[],int n,int k){
+
+int T[n + 1][k + 1];
+
+	for (int i = 0; i <= n; i++)
+	{
+		for (int j = 0; j <= k; j++)
+		{
+			if (i == 0)
+				T[0][j] = 0;
+			else if (j == 0)
+				T[i][0] = 1;
+			else if (a[i - 1] > j)
+				T[i][j] = T[i - 1][j];
+			else
+				T[i][j] = T[i - 1][j] + T[i][j - a[i - 1]];
+		}
+	}
+
+	return T[n][k];
+}
+
+
+
+int main()
+{
+	int a[] = {1, 2, 3}; 
+    int n=3;
+    int k=4;
+    cout<<solve(a,n,k)<<endl;
+    
+	return 0;
+}
+ouput 4
+complexity o(nk)
