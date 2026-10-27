@@ -2,12 +2,6 @@
 
 C++ notes and solutions from practice problems, grouped by topic.
 
-These are snippets and write-ups, not standalone programs. Filenames use lowercase words separated by hyphens so problems are easy to search.
-
-Two duplicate copies were removed:
-
-- `string/KNAPSACK`, which matched `dynamic-programming/knapsack.cpp`
-- a second linked-list merge-sort file that matched `linked-lists/merge-sort-for-linked-list.cpp`
 
 ## Topics
 
